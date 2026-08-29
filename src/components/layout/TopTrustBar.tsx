@@ -1,0 +1,27 @@
+"use client";
+
+import { CheckCircle, Shield, Star, Clock } from "lucide-react";
+
+const items = [
+  { icon: CheckCircle, label: "Locally Owned & Operated" },
+  { icon: Shield, label: "Fully Insured" },
+  { icon: Star, label: "Satisfaction Guaranteed" },
+  { icon: Clock, label: "Reliable, On-Time Service" },
+];
+
+export function TopTrustBar() {
+  return (
+    <div className="fixed top-0 right-0 left-0 z-[60] bg-[#050b18] py-2.5">
+      <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-center gap-x-4 gap-y-2 px-4 sm:gap-x-8 lg:justify-between lg:px-8">
+        {items.map((item) => (
+          <div key={item.label} className="flex items-center gap-2">
+            <item.icon className="h-3.5 w-3.5 text-electric" strokeWidth={2.5} />
+            <span className="text-[11px] font-medium tracking-wide text-white/90 sm:text-xs">
+              {item.label}
+            </span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
