@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { Check } from "lucide-react";
 import type { Service } from "@/data/services";
 import { MagneticButton } from "@/components/ui/MagneticButton";
+import { CarpetPricePickMenu } from "@/components/ui/CarpetPricePickMenu";
 import { cn } from "@/lib/utils";
 
 interface ServiceSectionProps {
@@ -37,6 +38,7 @@ export function ServiceSection({ service, index }: ServiceSectionProps) {
   const isReversed = index % 2 === 1;
   const isSnow = service.id === "snow-removal";
   const isLawn = service.id === "lawn-care";
+  const isCarpet = service.id === "carpet-cleaning";
 
   return (
     <section
@@ -102,6 +104,13 @@ export function ServiceSection({ service, index }: ServiceSectionProps) {
                 Book This Service
               </MagneticButton>
             </div>
+
+            {isCarpet && (
+              <div className="mt-8 rounded-2xl border border-royal/10 bg-ice p-6">
+                <p className="mb-4 font-heading text-lg font-bold text-navy">Carpet Cleaning Price Picks</p>
+                <CarpetPricePickMenu />
+              </div>
+            )}
           </div>
         </div>
       </div>

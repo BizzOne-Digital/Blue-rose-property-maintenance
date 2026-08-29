@@ -5,18 +5,14 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { Check, ArrowRight } from "lucide-react";
 import { images } from "@/data/images";
+import { getServiceById } from "@/data/services";
 import { BeforeAfterSlider } from "@/components/ui/BeforeAfterSlider";
 import { AnimatedHeading } from "@/components/ui/AnimatedHeading";
 import { MagneticButton } from "@/components/ui/MagneticButton";
 import { Sparkles } from "@/components/ui/Sparkles";
+import { CarpetPricePickMenu } from "@/components/ui/CarpetPricePickMenu";
 
-const benefits = [
-  "Deep extraction cleaning",
-  "Rooms, hallways and living spaces",
-  "Couch and recliner cleaning",
-  "Mattress cleaning",
-  "Clear starting prices",
-];
+const carpetService = getServiceById("carpet-cleaning")!;
 
 export function ServiceSpotlight() {
   return (
@@ -35,30 +31,31 @@ export function ServiceSpotlight() {
               className="font-heading text-3xl font-bold text-navy md:text-5xl"
             />
             <p className="mt-6 text-lg leading-relaxed text-navy/70">
-              Professional extraction helps lift embedded dirt, refresh worn fibres and give your rooms a cleaner, brighter appearance.
+              Professional extraction helps lift embedded dirt, refresh worn fibres and give your rooms and living rooms a cleaner, brighter appearance.
             </p>
 
             <ul className="mt-8 space-y-3">
-              {benefits.map((b, i) => (
+              {carpetService.items.map((item, i) => (
                 <motion.li
-                  key={b}
+                  key={item}
                   className="flex items-center gap-3 text-navy/80"
                   initial={{ opacity: 0, x: -20 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.08 }}
                 >
-                  <span className="flex h-6 w-6 items-center justify-center rounded-full bg-gradient-to-br from-electric to-royal text-white">
+                  <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-electric to-royal text-white">
                     <Check className="h-3.5 w-3.5" />
                   </span>
-                  {b}
+                  {item}
                 </motion.li>
               ))}
             </ul>
 
             <div className="mt-8 rounded-2xl bg-gradient-to-br from-navy to-royal p-6 text-white shadow-xl">
-              <p className="text-sm text-ice/70">Starting from</p>
-              <p className="font-heading text-3xl font-bold">$99 minimum service</p>
+              <p className="text-sm text-ice/70">Carpet cleaning pricing</p>
+              <p className="font-heading text-3xl font-bold">$59.99 per room</p>
+              <p className="mt-2 text-sm text-ice/70">$90 living room option</p>
             </div>
 
             <div className="mt-6 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
@@ -97,6 +94,11 @@ export function ServiceSpotlight() {
               </p>
             </motion.div>
           </div>
+        </div>
+
+        <div className="relative mt-12 rounded-2xl border border-royal/10 bg-white p-6 shadow-lg sm:p-8">
+          <p className="mb-4 font-heading text-lg font-bold text-navy">Carpet Cleaning Price Picks</p>
+          <CarpetPricePickMenu />
         </div>
       </div>
     </section>

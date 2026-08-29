@@ -9,6 +9,7 @@ import { images } from "@/data/images";
 import { services } from "@/data/services";
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
+import { CarpetPricePickMenu } from "@/components/ui/CarpetPricePickMenu";
 import type { ServiceId } from "@/data/services";
 
 const serviceImages: Record<ServiceId, string> = {
@@ -68,7 +69,7 @@ export function Hero() {
   const [selectedService, setSelectedService] = useState<ServiceId>("carpet-cleaning");
 
   return (
-    <section className="relative min-h-[calc(100dvh-6.5rem)] overflow-hidden bg-navy pt-[6.5rem] pb-28 md:pb-0">
+    <section className="relative min-h-[calc(100dvh-7.5rem)] overflow-hidden bg-navy pt-[7.5rem] pb-28 md:pb-0">
       {/* Background image */}
       <div className="absolute inset-0">
         <AnimatePresence mode="wait">
@@ -133,7 +134,7 @@ export function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
           >
-            Professional carpet cleaning, home cleaning, lawn care and snow removal—all from one trusted team.
+            Professional carpet cleaning, home cleaning, lawn care and snow removal—all from one trusted {siteConfig.city} team.
           </motion.p>
 
           <motion.div
@@ -190,55 +191,75 @@ export function Hero() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.8, duration: 0.6 }}
       >
-        <div className="flex overflow-hidden rounded-xl bg-white shadow-2xl shadow-navy/20">
-          {services.map((service) => {
-            const Icon = serviceIcons[service.id];
-            const active = selectedService === service.id;
-            return (
-              <button
-                key={service.id}
-                type="button"
-                onClick={() => setSelectedService(service.id)}
-                className={cn(
-                  "flex w-[7.5rem] flex-col items-center gap-2 px-4 py-5 transition-all lg:w-[8.5rem]",
-                  active ? "bg-ice" : "hover:bg-gray-50"
-                )}
-                aria-pressed={active}
-              >
-                <Icon active={active} />
-                <span
+        <div className="flex flex-col items-end gap-3">
+          <div className="flex overflow-hidden rounded-xl bg-white shadow-2xl shadow-navy/20">
+            {services.map((service) => {
+              const Icon = serviceIcons[service.id];
+              const active = selectedService === service.id;
+              return (
+                <button
+                  key={service.id}
+                  type="button"
+                  onClick={() => setSelectedService(service.id)}
                   className={cn(
-                    "text-center text-[11px] leading-tight font-semibold",
-                    active ? "text-royal" : "text-gray-400"
+                    "flex w-[7.5rem] flex-col items-center gap-2 px-4 py-5 transition-all lg:w-[8.5rem]",
+                    active ? "bg-ice" : "hover:bg-gray-50"
                   )}
+                  aria-pressed={active}
                 >
-                  {service.name}
-                </span>
-              </button>
-            );
-          })}
+                  <Icon active={active} />
+                  <span
+                    className={cn(
+                      "text-center text-[11px] leading-tight font-semibold",
+                      active ? "text-royal" : "text-gray-400"
+                    )}
+                  >
+                    {service.name}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+
+          {selectedService === "carpet-cleaning" && (
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="w-[min(100vw-2rem,28rem)] rounded-xl bg-white p-4 shadow-2xl shadow-navy/20"
+            >
+              <CarpetPricePickMenu />
+            </motion.div>
+          )}
         </div>
       </motion.div>
 
       {/* Mobile service selector */}
       <div className="absolute right-0 bottom-16 left-0 z-20 px-3 sm:px-4 md:hidden">
-        <div className="mx-auto flex max-w-full gap-2 overflow-x-auto rounded-xl bg-white p-2 shadow-xl no-scrollbar">
-          {services.map((service) => {
-            const active = selectedService === service.id;
-            return (
-              <button
-                key={service.id}
-                type="button"
-                onClick={() => setSelectedService(service.id)}
-                className={cn(
-                  "shrink-0 rounded-lg px-3 py-2 text-xs font-semibold transition-all",
-                  active ? "bg-royal text-white" : "text-gray-500"
-                )}
-              >
-                {service.name}
-              </button>
-            );
-          })}
+        <div className="mx-auto flex max-w-full flex-col gap-2">
+          <div className="flex gap-2 overflow-x-auto rounded-xl bg-white p-2 shadow-xl no-scrollbar">
+            {services.map((service) => {
+              const active = selectedService === service.id;
+              return (
+                <button
+                  key={service.id}
+                  type="button"
+                  onClick={() => setSelectedService(service.id)}
+                  className={cn(
+                    "shrink-0 rounded-lg px-3 py-2 text-xs font-semibold transition-all",
+                    active ? "bg-royal text-white" : "text-gray-500"
+                  )}
+                >
+                  {service.name}
+                </button>
+              );
+            })}
+          </div>
+
+          {selectedService === "carpet-cleaning" && (
+            <div className="rounded-xl bg-white p-4 shadow-xl">
+              <CarpetPricePickMenu />
+            </div>
+          )}
         </div>
       </div>
 

@@ -10,7 +10,7 @@ import { FinalCTA } from "@/components/sections/FinalCTA";
 
 export const metadata: Metadata = {
   title: "Contact",
-  description: "Get in touch with Blue Rose Property Maintenance for service inquiries and bookings.",
+  description: `Get in touch with Blue Rose Property Maintenance in ${siteConfig.city} for service inquiries and bookings.`,
 };
 
 const contactCards = [
@@ -50,7 +50,7 @@ export default function ContactPage() {
             Get In Touch
           </h1>
           <p className="mx-auto mt-6 max-w-2xl text-lg text-ice/70">
-            Have a question or ready to book? Reach out and our team will get back to you.
+            Have a question or ready to book? Reach out to our {siteConfig.city} team and we&apos;ll get back to you.
           </p>
         </div>
       </section>

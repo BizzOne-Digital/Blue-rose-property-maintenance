@@ -23,15 +23,16 @@ export const services: Service[] = [
     id: "carpet-cleaning",
     name: "Carpet Cleaning",
     shortDescription:
-      "Professional extraction lifts embedded dirt and refreshes worn fibres for a cleaner, brighter home.",
+      "Professional room, living room, hallway and upholstery carpet cleaning with deep extraction for a cleaner, brighter home.",
     description:
-      "Refresh carpets, upholstery and mattresses with professional cleaning designed to lift embedded dirt and improve the appearance of your space.",
-    startingPrice: "from $99 minimum",
+      "Refresh rooms, living rooms, hallways, couches, recliners and mattresses with professional cleaning designed to lift embedded dirt and improve the appearance of your space.",
+    startingPrice: "$59.99 per room · $90 living room",
     image: images.carpetCleaning.hero,
     featured: true,
     items: [
       "Rooms",
       "Living rooms",
+      "Rugs",
       "Hallways",
       "Couches",
       "Recliners",
@@ -39,7 +40,9 @@ export const services: Service[] = [
     ],
     benefits: [
       "Deep extraction cleaning",
-      "Rooms, hallways and living spaces",
+      "Rooms and living rooms",
+      "Rug cleaning",
+      "Hallways",
       "Couch and recliner cleaning",
       "Mattress cleaning",
       "Clear starting prices",
@@ -52,7 +55,7 @@ export const services: Service[] = [
       "Flexible residential cleaning for regular upkeep, detailed cleans and move-out preparation.",
     description:
       "Flexible residential cleaning for regular upkeep, detailed cleaning and move-out preparation.",
-    startingPrice: "from $100",
+    startingPrice: "from $150",
     image: images.homeCleaning.hero,
     items: [
       "Standard one-bedroom cleaning",
@@ -81,12 +84,10 @@ export const services: Service[] = [
     items: [
       "One-time lawn mowing",
       "Yard cleanup",
-      "Seasonal property cleanup",
     ],
     benefits: [
       "Professional mowing",
       "Yard debris removal",
-      "Seasonal cleanup",
       "Neat, maintained lawns",
       "Residential outdoor care",
     ],
@@ -95,20 +96,19 @@ export const services: Service[] = [
     id: "snow-removal",
     name: "Snow Removal",
     shortDescription:
-      "Keep driveways and walkways clearer and safer during winter weather.",
+      "Sidewalks snow removal with optional driveway clearing to keep your property safer in winter.",
     description:
-      "Keep driveways and walkways clearer and safer during winter weather.",
+      "Sidewalks snow removal with optional driveway clearing and ice-melt add-ons to keep walkways safer during winter weather.",
     startingPrice: "from $99",
     image: images.snowRemoval.hero,
     items: [
-      "Residential snow removal",
-      "Driveway clearing",
-      "Walkway clearing",
+      "Sidewalks snow removal",
+      "Driveway clearing add-on",
       "Ice-melt add-on",
     ],
     benefits: [
-      "Driveway clearing",
-      "Walkway clearing",
+      "Sidewalks snow removal",
+      "Driveway clearing add-on",
       "Ice-melt application",
       "Residential snow service",
       "Winter safety focus",

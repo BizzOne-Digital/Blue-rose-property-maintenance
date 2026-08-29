@@ -43,22 +43,22 @@ export function Header() {
         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
       >
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-2 px-3 py-2.5 sm:gap-3 sm:px-4 sm:py-3 lg:px-8">
-          <Link href="/" className="group flex items-center gap-3">
-            <div className="rounded-lg bg-white p-1 shadow-sm ring-1 ring-navy/5">
+          <Link href="/" className="group flex shrink-0 items-center gap-3">
+            <div className="rounded-xl bg-white p-1.5 shadow-sm ring-1 ring-navy/5 sm:p-2">
               <Image
                 src="/images/blue-rose-logo.png"
                 alt="Blue Rose Property Maintenance logo"
-                width={48}
-                height={48}
-                className="h-10 w-10 object-contain sm:h-11 sm:w-11"
+                width={72}
+                height={72}
+                className="h-14 w-14 object-contain sm:h-16 sm:w-16"
                 priority
               />
             </div>
             <div className="hidden sm:block">
-              <p className="font-heading text-sm leading-tight font-bold tracking-tight text-navy">
+              <p className="font-heading text-base leading-tight font-bold tracking-tight text-navy">
                 Blue Rose
               </p>
-              <p className="text-[10px] leading-tight font-medium tracking-wider text-royal uppercase">
+              <p className="text-[11px] leading-tight font-medium tracking-wider text-royal uppercase">
                 Property Maintenance
               </p>
             </div>

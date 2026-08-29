@@ -27,20 +27,20 @@ export function Footer() {
       <div className="relative mx-auto max-w-7xl px-4 py-16 lg:px-8">
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4">
           <div>
-            <div className="mb-4 inline-block rounded-xl bg-white p-2">
+            <div className="mb-5 inline-block rounded-2xl bg-white p-2.5 sm:p-3">
               <Image
                 src="/images/blue-rose-logo.png"
                 alt="Blue Rose Property Maintenance"
-                width={80}
-                height={80}
-                className="h-16 w-16 object-contain"
+                width={120}
+                height={120}
+                className="h-24 w-24 object-contain sm:h-28 sm:w-28"
               />
             </div>
-            <h3 className="font-heading text-lg font-bold">Blue Rose</h3>
+            <h3 className="font-heading text-xl font-bold">Blue Rose</h3>
             <p className="text-sm text-ice/70">Property Maintenance</p>
             <p className="mt-4 text-sm leading-relaxed text-ice/60">
-              Professional carpet cleaning, home cleaning, lawn care and snow removal —
-              one trusted team for year-round property care.
+              Professional carpet cleaning, home cleaning, lawn care and snow removal in{" "}
+              {siteConfig.city} — one trusted team for year-round property care.
             </p>
             <div className="mt-4 flex items-center gap-1 text-sm text-ice/80">
               <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />

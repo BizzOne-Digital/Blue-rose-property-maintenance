@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import { BookingWizard } from "@/components/ui/BookingWizard";
+import { siteConfig } from "@/config/site";
 
 export const metadata: Metadata = {
   title: "Book a Service",
   description:
-    "Request a booking for carpet cleaning, home cleaning, lawn care or snow removal.",
+    `Request a booking for carpet cleaning, home cleaning, lawn care or snow removal in ${siteConfig.city}.`,
 };
 
 export default function BookingPage() {

@@ -2,11 +2,12 @@ import type { Metadata } from "next";
 import { pricingCategories, pricingNotice } from "@/data/pricing";
 import { PricingCard } from "@/components/ui/PricingCard";
 import { FinalCTA } from "@/components/sections/FinalCTA";
+import { siteConfig } from "@/config/site";
 
 export const metadata: Metadata = {
   title: "Pricing",
   description:
-    "Transparent starting prices for carpet cleaning, home cleaning, lawn care and snow removal services.",
+    `Transparent starting prices for carpet cleaning, home cleaning, lawn care and snow removal in ${siteConfig.city}.`,
 };
 
 export default function PricingPage() {

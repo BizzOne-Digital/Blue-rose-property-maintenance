@@ -33,6 +33,6 @@ export const faqs: FAQ[] = [
     id: "area",
     question: "What areas do you serve?",
     answer:
-      "We provide residential property maintenance services in our local service area. Contact us to confirm availability for your address.",
+      "We provide residential property maintenance services in Regina, SK and surrounding areas. Contact us to confirm availability for your address.",
   },
 ];

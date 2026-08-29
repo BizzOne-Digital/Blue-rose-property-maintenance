@@ -24,10 +24,6 @@ export function ServicesDropdown() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  useEffect(() => {
-    setOpen(false);
-  }, [pathname]);
-
   return (
     <div
       ref={containerRef}
@@ -73,6 +69,7 @@ export function ServicesDropdown() {
             <div className="p-1.5">
               <Link
                 href="/services"
+                onClick={() => setOpen(false)}
                 className="block rounded-lg px-4 py-2.5 text-sm font-semibold text-navy transition-colors hover:bg-ice hover:text-royal"
                 role="menuitem"
               >
@@ -83,6 +80,7 @@ export function ServicesDropdown() {
                 <Link
                   key={link.href}
                   href={link.href}
+                  onClick={() => setOpen(false)}
                   className="block rounded-lg px-4 py-2.5 text-sm text-navy/70 transition-colors hover:bg-ice hover:text-royal"
                   role="menuitem"
                 >

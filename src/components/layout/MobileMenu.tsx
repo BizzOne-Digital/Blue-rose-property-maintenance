@@ -42,13 +42,13 @@ export function MobileMenu({ onClose }: MobileMenuProps) {
       >
         <div className="mb-8 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="rounded-xl bg-white p-1.5">
+            <div className="rounded-xl bg-white p-2">
               <Image
                 src="/images/blue-rose-logo.png"
                 alt="Blue Rose"
-                width={44}
-                height={44}
-                className="h-10 w-10 object-contain"
+                width={56}
+                height={56}
+                className="h-14 w-14 object-contain"
               />
             </div>
             <div>

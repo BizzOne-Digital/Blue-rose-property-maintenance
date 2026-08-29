@@ -1,9 +1,10 @@
 "use client";
 
 import { CheckCircle, Shield, Star, Clock } from "lucide-react";
+import { siteConfig } from "@/config/site";
 
 const items = [
-  { icon: CheckCircle, label: "Locally Owned & Operated" },
+  { icon: CheckCircle, label: `Serving ${siteConfig.city}` },
   { icon: Shield, label: "Fully Insured" },
   { icon: Star, label: "Satisfaction Guaranteed" },
   { icon: Clock, label: "Reliable, On-Time Service" },

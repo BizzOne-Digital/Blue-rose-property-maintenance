@@ -24,17 +24,17 @@ const sora = Sora({
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
-    default: `${siteConfig.name} | Property Maintenance Services`,
+    default: `${siteConfig.name} | Regina Property Maintenance Services`,
     template: `%s | ${siteConfig.name}`,
   },
   description: siteConfig.description,
   keywords: [
-    "property maintenance services",
-    "professional carpet cleaning",
-    "residential cleaning",
-    "lawn mowing service",
-    "yard cleanup",
-    "snow removal service",
+    "property maintenance services Regina",
+    "professional carpet cleaning Regina",
+    "residential cleaning Regina",
+    "lawn mowing service Regina",
+    "yard cleanup Regina",
+    "snow removal service Regina",
   ],
   openGraph: {
     type: "website",
@@ -74,6 +74,12 @@ export default function RootLayout({
               url: siteConfig.url,
               telephone: siteConfig.phone,
               email: siteConfig.email,
+              address: {
+                "@type": "PostalAddress",
+                addressLocality: siteConfig.city,
+                addressRegion: siteConfig.region,
+                addressCountry: "CA",
+              },
               areaServed: siteConfig.serviceArea,
               aggregateRating: {
                 "@type": "AggregateRating",
