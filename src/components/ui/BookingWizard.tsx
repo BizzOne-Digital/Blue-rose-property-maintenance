@@ -333,6 +333,7 @@ function BookingWizardInner() {
                 `Add-ons: ${data.addons?.join(", ") || "None"}`,
               ]
             : [
+                "Service Type: Standard cleaning",
                 `Property Type: ${data.propertyType}`,
                 `Bedrooms: ${formatBedrooms(data.bedrooms)}`,
                 `Add-ons: ${data.addons?.join(", ") || "None"}`,
@@ -514,6 +515,13 @@ function BookingWizardInner() {
 
             {step === 1 && isHome && (
               <div className="space-y-5">
+                <div className="rounded-xl border border-royal/20 bg-ice p-4">
+                  <p className="text-sm font-medium text-navy">Standard cleaning pricing</p>
+                  <p className="mt-1 text-sm text-navy/70">
+                    Starting prices below are for standard home cleaning.
+                  </p>
+                </div>
+
                 <div>
                   <label className="mb-1.5 block text-sm font-medium text-navy">Property Type</label>
                   <select
@@ -557,7 +565,7 @@ function BookingWizardInner() {
                 </div>
 
                 <div className="rounded-xl bg-gradient-to-r from-navy to-royal p-4 text-white">
-                  <p className="text-sm text-ice/70">Estimated starting price</p>
+                  <p className="text-sm text-ice/70">Estimated standard cleaning price</p>
                   <p className="font-heading text-2xl font-bold">{estimatedPrice}</p>
                 </div>
               </div>
@@ -761,7 +769,7 @@ function BookingWizardInner() {
                       ) : isHome ? (
                         <>
                           <p>
-                            <strong>Property:</strong> {values.propertyType} —{" "}
+                            <strong>Standard cleaning:</strong> {values.propertyType} —{" "}
                             {formatBedrooms(values.bedrooms)}
                           </p>
                           <p>

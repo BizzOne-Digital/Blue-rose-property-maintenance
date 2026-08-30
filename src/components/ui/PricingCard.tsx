@@ -14,6 +14,9 @@ export function PricingCard({ category }: { category: PricingCategory }) {
       viewport={{ once: true }}
     >
       <h3 className="font-heading text-xl font-bold text-navy">{category.name}</h3>
+      {category.note && (
+        <p className="mt-2 text-sm text-navy/60">{category.note}</p>
+      )}
       <ul className="mt-6 space-y-3">
         {category.items.map((item) => (
           <li

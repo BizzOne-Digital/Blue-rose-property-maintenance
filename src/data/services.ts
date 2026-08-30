@@ -55,7 +55,7 @@ export const services: Service[] = [
       "Flexible residential cleaning for regular upkeep, detailed cleans and move-out preparation.",
     description:
       "Flexible residential cleaning for regular upkeep, detailed cleaning and move-out preparation.",
-    startingPrice: "from $150",
+    startingPrice: "Standard cleaning from $150",
     image: images.homeCleaning.hero,
     items: [
       "Standard one-bedroom cleaning",

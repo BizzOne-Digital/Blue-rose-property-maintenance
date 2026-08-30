@@ -29,10 +29,11 @@ export const pricingCategories: PricingCategory[] = [
   {
     id: "home-cleaning",
     name: "Standard Home Cleaning",
+    note: "Starting prices shown are for standard cleaning.",
     items: [
-      { label: "One-bedroom cleaning", price: "starting at $150" },
-      { label: "Two-bedroom cleaning", price: "starting at $225" },
-      { label: "Three-bedroom cleaning", price: "starting at $300" },
+      { label: "One-bedroom standard cleaning", price: "starting at $150" },
+      { label: "Two-bedroom standard cleaning", price: "starting at $225" },
+      { label: "Three-bedroom standard cleaning", price: "starting at $300" },
       { label: "Fridge or stove cleaning add-on", price: "$30" },
       { label: "Move-out cleaning", price: "starting at $200" },
       { label: "One-bedroom move-out", price: "$225+" },
@@ -64,7 +65,7 @@ export const pricingNotice =
 
 export const pricingPreview = [
   { service: "Carpet Cleaning", price: "$59.99 per room · $90 living room", id: "carpet-cleaning" as ServiceId },
-  { service: "Standard Home Cleaning", price: "from $150", id: "home-cleaning" as ServiceId },
+  { service: "Standard Home Cleaning", price: "Standard cleaning from $150", id: "home-cleaning" as ServiceId },
   { service: "Lawn Mowing", price: "from $60", id: "lawn-care" as ServiceId },
   { service: "Snow Removal", price: "from $99", id: "snow-removal" as ServiceId },
 ];
