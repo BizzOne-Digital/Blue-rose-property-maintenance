@@ -59,6 +59,8 @@ export const services: Service[] = [
     image: images.homeCleaning.hero,
     items: [
       "Standard one-bedroom cleaning",
+      "Carpet cleaning — per room add-on",
+      "Carpet cleaning — living room add-on",
       "Fridge cleaning add-on",
       "Stove cleaning add-on",
       "Move-out cleaning",
@@ -66,6 +68,7 @@ export const services: Service[] = [
     ],
     benefits: [
       "Regular and deep cleaning",
+      "Carpet cleaning add-ons",
       "Move-out preparation",
       "Add-on appliance cleaning",
       "Flexible scheduling",

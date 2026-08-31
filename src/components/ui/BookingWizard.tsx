@@ -14,6 +14,7 @@ import { cn } from "@/lib/utils";
 import { CarpetPricePickMenu } from "@/components/ui/CarpetPricePickMenu";
 import {
   CARPET_MINIMUM,
+  CARPET_LIVING_ROOM_PRICE,
   CARPET_PER_ROOM_PRICE,
   carpetAddonOptions,
   getCarpetAddonByLabel,
@@ -131,10 +132,29 @@ const snowAddons = [
   { label: "Ice-melt application", price: 50 },
 ] as const;
 
-const serviceAddons: Record<Exclude<ServiceId, "carpet-cleaning" | "snow-removal">, string[]> = {
-  "home-cleaning": ["Fridge cleaning", "Stove cleaning", "Move-out cleaning"],
+const homeCleaningAddons = [
+  { label: "Carpet cleaning — per room", price: CARPET_PER_ROOM_PRICE },
+  { label: "Carpet cleaning — living room", price: CARPET_LIVING_ROOM_PRICE },
+  { label: "Fridge cleaning", price: 30 },
+  { label: "Stove cleaning", price: 30 },
+  { label: "Move-out cleaning", price: null },
+] as const;
+
+const serviceAddons: Record<"lawn-care", string[]> = {
   "lawn-care": ["Yard cleanup"],
 };
+
+function calculateHomeEstimate(bedrooms: BedroomCount, addons: string[]): string {
+  const base = HOME_BEDROOM_PRICES[bedrooms];
+  const addonTotal = addons.reduce((sum, addon) => {
+    const match = homeCleaningAddons.find((option) => option.label === addon);
+    return sum + (match?.price ?? 0);
+  }, 0);
+  if (addonTotal > 0) {
+    return `$${(base + addonTotal).toFixed(2)}+ estimated`;
+  }
+  return `$${base}+`;
+}
 
 function calculateCarpetEstimate(roomCount: number, addons: string[]): string {
   const roomTotal = roomCount * CARPET_PER_ROOM_PRICE;
@@ -273,7 +293,7 @@ function BookingWizardInner() {
     }
     if (isHome) {
       if (bedrooms) {
-        return `$${HOME_BEDROOM_PRICES[bedrooms]}+`;
+        return calculateHomeEstimate(bedrooms, selectedAddons);
       }
       return "$150+";
     }
@@ -544,21 +564,25 @@ function BookingWizardInner() {
                 />
 
                 <div>
-                  <p className="mb-3 text-sm font-medium text-navy">Add-ons (optional)</p>
+                  <p className="mb-1 text-sm font-medium text-navy">Add-ons (optional)</p>
+                  <p className="mb-3 text-xs text-navy/50">
+                    Add carpet cleaning, appliance cleaning, or move-out service
+                  </p>
                   <div className="flex flex-wrap gap-2">
-                    {serviceAddons["home-cleaning"].map((addon) => (
+                    {homeCleaningAddons.map((addon) => (
                       <button
-                        key={addon}
+                        key={addon.label}
                         type="button"
-                        onClick={() => toggleAddon(addon)}
+                        onClick={() => toggleAddon(addon.label)}
                         className={cn(
                           "rounded-full px-4 py-2 text-xs font-medium transition-all",
-                          selectedAddons.includes(addon)
+                          selectedAddons.includes(addon.label)
                             ? "bg-royal text-white"
                             : "bg-navy/5 text-navy/60 hover:bg-navy/10"
                         )}
                       >
-                        {addon}
+                        {addon.label}
+                        {addon.price !== null ? ` · $${addon.price.toFixed(2)}` : ""}
                       </button>
                     ))}
                   </div>

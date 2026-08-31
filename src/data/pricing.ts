@@ -35,6 +35,8 @@ export const pricingCategories: PricingCategory[] = [
       { label: "Two-bedroom standard cleaning", price: "starting at $225" },
       { label: "Three-bedroom standard cleaning", price: "starting at $300" },
       { label: "Fridge or stove cleaning add-on", price: "$30" },
+      { label: "Carpet cleaning — per room add-on", price: "$59.99" },
+      { label: "Carpet cleaning — living room add-on", price: "$90" },
       { label: "Move-out cleaning", price: "starting at $200" },
       { label: "One-bedroom move-out", price: "$225+" },
       { label: "Two-bedroom move-out", price: "$300+" },
