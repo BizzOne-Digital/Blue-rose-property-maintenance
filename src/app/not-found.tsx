@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export default function NotFound() {
   return (
-    <section className="flex min-h-screen flex-col items-center justify-center gradient-bg-radial px-4 pt-20 text-center">
+    <section className="page-header-offset flex min-h-screen flex-col items-center justify-center gradient-bg-radial px-4 pb-12 text-center">
       <div className="mb-8 rounded-2xl bg-white p-4 shadow-xl">
         <Image
           src="/images/blue-rose-logo.png"

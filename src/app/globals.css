@@ -46,6 +46,17 @@ html {
   scroll-behavior: smooth;
   overflow-x: clip;
   max-width: 100%;
+  --site-header-offset: 11.5rem;
+}
+
+@media (min-width: 640px) {
+  html {
+    --site-header-offset: 13rem;
+  }
+}
+
+.page-header-offset {
+  padding-top: var(--site-header-offset);
 }
 
 @media (prefers-reduced-motion: reduce) {

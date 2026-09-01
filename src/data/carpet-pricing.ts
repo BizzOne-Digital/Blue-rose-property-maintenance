@@ -20,6 +20,7 @@ export const carpetAddonOptions: CarpetAddonOption[] = [
   { id: "living-room", label: "Living room", price: CARPET_LIVING_ROOM_PRICE },
   { id: "rug", label: "Rug", price: 60 },
   { id: "hallway", label: "Hallway", price: 30 },
+  { id: "stairs", label: "Stairs", price: 75 },
   { id: "couch", label: "Couch cleaning", price: 99 },
   { id: "recliner", label: "Recliner cleaning", price: 65 },
   { id: "mattress", label: "Mattress cleaning", price: 69 },

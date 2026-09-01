@@ -21,6 +21,7 @@ export const pricingCategories: PricingCategory[] = [
       { label: "Living room", price: "$90" },
       { label: "Rug", price: "$60" },
       { label: "Hallway", price: "$30" },
+      { label: "Stairs", price: "$75" },
       { label: "Couch", price: "$99" },
       { label: "Recliner", price: "$65" },
       { label: "Mattress cleaning", price: "starting at $69" },
@@ -55,8 +56,11 @@ export const pricingCategories: PricingCategory[] = [
     id: "snow-removal",
     name: "Snow Removal",
     items: [
-      { label: "Sidewalks snow removal", price: "starting at $99" },
-      { label: "Driveway clearing add-on", price: "add-on" },
+      {
+        label: "One-time snow removal",
+        price: "$80 — driveway, sidewalk, walkway & steps included",
+      },
+      { label: "Residential monthly", price: "$200/mo" },
       { label: "Ice-melt add-on", price: "starting at $50" },
     ],
   },
@@ -69,5 +73,5 @@ export const pricingPreview = [
   { service: "Carpet Cleaning", price: "$59.99 per room · $90 living room", id: "carpet-cleaning" as ServiceId },
   { service: "Standard Home Cleaning", price: "Standard cleaning from $150", id: "home-cleaning" as ServiceId },
   { service: "Lawn Mowing", price: "from $60", id: "lawn-care" as ServiceId },
-  { service: "Snow Removal", price: "from $99", id: "snow-removal" as ServiceId },
+  { service: "Snow Removal", price: "One-time $80 · $200/mo residential", id: "snow-removal" as ServiceId },
 ];

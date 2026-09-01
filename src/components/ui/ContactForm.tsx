@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -19,29 +20,40 @@ const contactSchema = z.object({
 type ContactFormData = z.infer<typeof contactSchema>;
 
 export function ContactForm() {
+  const [submitError, setSubmitError] = useState<string | null>(null);
+  const [submitSuccess, setSubmitSuccess] = useState(false);
+
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitSuccessful },
+    formState: { errors, isSubmitting },
     reset,
   } = useForm<ContactFormData>({
     resolver: zodResolver(contactSchema),
   });
 
-  const onSubmit = (data: ContactFormData) => {
-    const body = [
-      `Name: ${data.name}`,
-      `Email: ${data.email}`,
-      `Phone: ${data.phone}`,
-      `Service: ${data.service}`,
-      `Subject: ${data.subject}`,
-      "",
-      data.message,
-    ].join("\n");
+  const onSubmit = async (data: ContactFormData) => {
+    setSubmitError(null);
+    setSubmitSuccess(false);
 
-    const mailto = `mailto:${siteConfig.email}?subject=${encodeURIComponent(data.subject)}&body=${encodeURIComponent(body)}`;
-    globalThis.location.assign(mailto);
-    reset();
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to send");
+      }
+
+      setSubmitSuccess(true);
+      reset();
+    } catch {
+      setSubmitError(
+        `Unable to send right now. Please email us directly at ${siteConfig.email}.`
+      );
+    }
   };
 
   return (
@@ -108,7 +120,9 @@ export function ContactForm() {
           >
             <option value="">Select a service</option>
             {services.map((s) => (
-              <option key={s.id} value={s.name}>{s.name}</option>
+              <option key={s.id} value={s.name}>
+                {s.name}
+              </option>
             ))}
           </select>
           {errors.service && <p className="mt-1 text-xs text-red-500">{errors.service.message}</p>}
@@ -148,14 +162,21 @@ export function ContactForm() {
 
       <button
         type="submit"
-        className="w-full rounded-xl bg-gradient-to-r from-royal via-electric to-royal bg-[length:200%_100%] py-4 font-semibold text-white shadow-lg transition-all hover:bg-right"
+        disabled={isSubmitting}
+        className="w-full rounded-xl bg-gradient-to-r from-royal via-electric to-royal bg-[length:200%_100%] py-4 font-semibold text-white shadow-lg transition-all hover:bg-right disabled:opacity-60"
       >
-        Send Message
+        {isSubmitting ? "Sending..." : "Send Message"}
       </button>
 
-      {isSubmitSuccessful && (
+      {submitSuccess && (
         <p className="text-center text-sm text-royal" role="status" aria-live="polite">
-          Your email client will open with your message. We&apos;ll respond as soon as possible.
+          Message sent successfully. We&apos;ll respond as soon as possible.
+        </p>
+      )}
+
+      {submitError && (
+        <p className="text-center text-sm text-red-500" role="alert">
+          {submitError}
         </p>
       )}
     </form>

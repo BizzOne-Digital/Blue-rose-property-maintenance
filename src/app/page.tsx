@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { TopTrustBar } from "@/components/layout/TopTrustBar";
 import { Hero, ServiceTicker } from "@/components/sections/Hero";
 import { TrustBar } from "@/components/sections/TrustBar";
 import { ServicesIntro } from "@/components/sections/ServicesIntro";
@@ -20,7 +19,6 @@ export const metadata: Metadata = {
 export default function HomePage() {
   return (
     <>
-      <TopTrustBar />
       <Hero />
       <TrustBar />
       <ServiceTicker />

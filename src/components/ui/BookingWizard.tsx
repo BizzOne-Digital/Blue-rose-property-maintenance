@@ -20,6 +20,12 @@ import {
   getCarpetAddonByLabel,
   type CarpetBedroomCount,
 } from "@/data/carpet-pricing";
+import {
+  calculateSnowEstimate,
+  snowAddonOptions,
+  snowPlanOptions,
+  type SnowPlanId,
+} from "@/data/snow-pricing";
 
 const STEPS = [
   "Select Service",
@@ -35,6 +41,7 @@ const bookingSchema = z
     propertyType: z.enum(["House", "Apartment"]).optional(),
     propertySize: z.string().optional(),
     bedrooms: z.enum(["1", "2", "3"]).optional(),
+    snowPlan: z.enum(["one-time", "monthly-residential"]).optional(),
     addons: z.array(z.string()).optional(),
     preferredDate: z.string().min(1, "Preferred date is required"),
     preferredTime: z.string().min(1, "Preferred time is required"),
@@ -92,6 +99,13 @@ const bookingSchema = z
     }
 
     if (data.service === "snow-removal") {
+      if (!data.snowPlan) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "Please select a snow removal plan",
+          path: ["snowPlan"],
+        });
+      }
       return;
     }
 
@@ -127,11 +141,6 @@ const HOME_BEDROOM_PRICES: Record<BedroomCount, number> = {
   "3": 300,
 };
 
-const snowAddons = [
-  { label: "Driveway clearing", price: null },
-  { label: "Ice-melt application", price: 50 },
-] as const;
-
 const homeCleaningAddons = [
   { label: "Carpet cleaning — per room", price: CARPET_PER_ROOM_PRICE },
   { label: "Carpet cleaning — living room", price: CARPET_LIVING_ROOM_PRICE },
@@ -166,10 +175,9 @@ function calculateCarpetEstimate(roomCount: number, addons: string[]): string {
   return `$${total.toFixed(2)} estimated`;
 }
 
-const estimatedPrices: Record<Exclude<ServiceId, "carpet-cleaning">, string> = {
+const estimatedPrices: Record<Exclude<ServiceId, "carpet-cleaning" | "snow-removal">, string> = {
   "home-cleaning": "$150+",
   "lawn-care": "$60+",
-  "snow-removal": "$99+",
 };
 
 function getServiceDetailFields(service: ServiceId): (keyof BookingFormData)[] {
@@ -181,7 +189,7 @@ function getServiceDetailFields(service: ServiceId): (keyof BookingFormData)[] {
     case "lawn-care":
       return ["propertySize"];
     case "snow-removal":
-      return [];
+      return ["snowPlan"];
   }
 }
 
@@ -260,6 +268,7 @@ function BookingWizardInner() {
   const selectedService = watch("service");
   const selectedAddons = watch("addons") || [];
   const bedrooms = watch("bedrooms");
+  const snowPlan = watch("snowPlan");
   const isCarpet = selectedService === "carpet-cleaning";
   const isLawn = selectedService === "lawn-care";
   const isHome = selectedService === "home-cleaning";
@@ -282,6 +291,13 @@ function BookingWizardInner() {
     if (selectedService === "lawn-care" || selectedService === "snow-removal") {
       setValue("propertyType", undefined);
     }
+    if (selectedService === "snow-removal") {
+      if (!getValues("snowPlan")) {
+        setValue("snowPlan", "one-time");
+      }
+    } else {
+      setValue("snowPlan", undefined);
+    }
   }, [selectedService, setValue, getValues]);
 
   const estimatedPrice = useMemo(() => {
@@ -297,8 +313,11 @@ function BookingWizardInner() {
       }
       return "$150+";
     }
-    return estimatedPrices[selectedService];
-  }, [isCarpet, isHome, bedrooms, selectedAddons, selectedService]);
+    if (isSnow) {
+      return calculateSnowEstimate(snowPlan, selectedAddons);
+    }
+    return estimatedPrices[selectedService as keyof typeof estimatedPrices];
+  }, [isCarpet, isHome, isSnow, bedrooms, selectedAddons, selectedService, snowPlan]);
 
   const toggleAddon = (addon: string) => {
     const current = selectedAddons;
@@ -333,7 +352,7 @@ function BookingWizardInner() {
 
   const prevStep = () => setStep((s) => Math.max(s - 1, 0));
 
-  const onSubmit = (data: BookingFormData) => {
+  const onSubmit = async (data: BookingFormData) => {
     const serviceName = services.find((s) => s.id === data.service)?.name ?? data.service;
 
     const serviceDetails =
@@ -349,7 +368,10 @@ function BookingWizardInner() {
             ]
           : data.service === "snow-removal"
             ? [
-                "Service: Sidewalks snow removal",
+                `Plan: ${snowPlanOptions.find((plan) => plan.id === data.snowPlan)?.label ?? data.snowPlan}`,
+                data.snowPlan === "one-time"
+                  ? "Includes: Driveway, sidewalk, walkway & steps"
+                  : "Residential monthly snow removal",
                 `Add-ons: ${data.addons?.join(", ") || "None"}`,
               ]
             : [
@@ -377,9 +399,27 @@ function BookingWizardInner() {
       `Estimated Starting Price: ${estimatedPrice}`,
     ].join("\n");
 
-    const mailto = `mailto:${siteConfig.email}?subject=${encodeURIComponent(`Booking Request - ${serviceName}`)}&body=${encodeURIComponent(body)}`;
-    globalThis.location.assign(mailto);
-    setSubmitted(true);
+    try {
+      const response = await fetch("/api/booking", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          subject: `Booking Request - ${serviceName}`,
+          replyTo: data.email,
+          body,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to send booking request");
+      }
+
+      setSubmitted(true);
+    } catch {
+      const mailto = `mailto:${siteConfig.email}?subject=${encodeURIComponent(`Booking Request - ${serviceName}`)}&body=${encodeURIComponent(body)}`;
+      globalThis.location.assign(mailto);
+      setSubmitted(true);
+    }
   };
 
   if (submitted) {
@@ -394,10 +434,10 @@ function BookingWizardInner() {
             className="object-contain"
           />
         </div>
-        <h2 className="font-heading text-2xl font-bold text-navy">Request Prepared</h2>
+        <h2 className="font-heading text-2xl font-bold text-navy">Request Sent</h2>
         <p className="mt-4 text-navy/70" role="status" aria-live="polite">
-          Your booking request has been prepared. Your appointment is not confirmed until the
-          Blue Rose team reviews the request and contacts you.
+          Your booking request has been sent to our team. Your appointment is not confirmed until
+          Blue Rose reviews the request and contacts you.
         </p>
       </div>
     );
@@ -493,23 +533,52 @@ function BookingWizardInner() {
 
             {step === 1 && isSnow && (
               <div className="space-y-5">
-                <div className="rounded-xl border border-royal/20 bg-ice p-4">
-                  <p className="text-sm font-medium text-navy">Included service</p>
-                  <p className="mt-1 font-heading text-lg font-bold text-royal">
-                    Sidewalks snow removal
-                  </p>
-                  <p className="mt-1 text-xs text-navy/50">Starting at $99</p>
+                <div>
+                  <p className="mb-1 text-sm font-medium text-navy">Select plan</p>
+                  <div className="space-y-3">
+                    {snowPlanOptions.map((plan) => {
+                      const selected = snowPlan === plan.id;
+                      return (
+                        <button
+                          key={plan.id}
+                          type="button"
+                          onClick={() =>
+                            setValue("snowPlan", plan.id as SnowPlanId, { shouldValidate: true })
+                          }
+                          className={cn(
+                            "w-full rounded-xl border-2 p-4 text-left transition-all",
+                            selected
+                              ? "border-royal bg-ice shadow-sm"
+                              : "border-navy/10 hover:border-royal/30"
+                          )}
+                        >
+                          <div className="flex items-start justify-between gap-3">
+                            <div>
+                              <p className="font-heading text-base font-bold text-navy uppercase">
+                                {plan.label}
+                              </p>
+                              <p className="mt-1 text-sm text-navy/70">{plan.description}</p>
+                            </div>
+                            <p className="shrink-0 font-heading text-lg font-bold text-royal">
+                              {plan.priceLabel}
+                            </p>
+                          </div>
+                        </button>
+                      );
+                    })}
+                  </div>
+                  {errors.snowPlan && (
+                    <p className="mt-1 text-xs text-red-500">{errors.snowPlan.message}</p>
+                  )}
                 </div>
 
                 <div>
                   <p className="mb-1 text-sm font-medium text-navy">Add-ons (optional)</p>
-                  <p className="mb-3 text-xs text-navy/50">
-                    Add driveway clearing or ice-melt to your sidewalks service
-                  </p>
+                  <p className="mb-3 text-xs text-navy/50">Add ice-melt application to your service</p>
                   <div className="flex flex-wrap gap-2">
-                    {snowAddons.map((addon) => (
+                    {snowAddonOptions.map((addon) => (
                       <button
-                        key={addon.label}
+                        key={addon.id}
                         type="button"
                         onClick={() => toggleAddon(addon.label)}
                         className={cn(
@@ -519,8 +588,7 @@ function BookingWizardInner() {
                             : "bg-navy/5 text-navy/60 hover:bg-navy/10"
                         )}
                       >
-                        {addon.label}
-                        {addon.price !== null ? ` · $${addon.price}` : ""}
+                        {addon.label} · ${addon.price}
                       </button>
                     ))}
                   </div>
@@ -814,8 +882,14 @@ function BookingWizardInner() {
                       ) : isSnow ? (
                         <>
                           <p>
-                            <strong>Service:</strong> Sidewalks snow removal
+                            <strong>Plan:</strong>{" "}
+                            {snowPlanOptions.find((plan) => plan.id === values.snowPlan)?.label}
                           </p>
+                          {values.snowPlan === "one-time" && (
+                            <p>
+                              <strong>Includes:</strong> Driveway, sidewalk, walkway & steps
+                            </p>
+                          )}
                           <p>
                             <strong>Add-ons:</strong>{" "}
                             {selectedAddons.length ? selectedAddons.join(", ") : "None"}

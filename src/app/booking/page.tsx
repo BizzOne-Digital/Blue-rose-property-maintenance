@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 export default function BookingPage() {
   return (
     <>
-      <section className="relative overflow-hidden gradient-bg-radial pt-28 pb-10 sm:pt-32 sm:pb-12">
+      <section className="relative overflow-hidden gradient-bg-radial page-header-offset pb-10 sm:pb-12">
         <div className="mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
           <span className="text-sm font-semibold tracking-wider text-electric uppercase">
             Book a Service

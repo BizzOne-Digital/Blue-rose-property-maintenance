@@ -41,7 +41,7 @@ const contactCards = [
 export default function ContactPage() {
   return (
     <>
-      <section className="relative overflow-hidden gradient-bg-radial pt-28 pb-16 sm:pt-32 sm:pb-20">
+      <section className="relative overflow-hidden gradient-bg-radial page-header-offset pb-16 sm:pb-20">
         <div className="mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
           <span className="text-sm font-semibold tracking-wider text-electric uppercase">
             Contact Us
@@ -50,7 +50,11 @@ export default function ContactPage() {
             Get In Touch
           </h1>
           <p className="mx-auto mt-6 max-w-2xl text-lg text-ice/70">
-            Have a question or ready to book? Reach out to our {siteConfig.city} team and we&apos;ll get back to you.
+            Have a question or ready to book? Email{" "}
+            <a href={`mailto:${siteConfig.email}`} className="text-electric hover:underline">
+              {siteConfig.email}
+            </a>{" "}
+            and our {siteConfig.city} team will get back to you.
           </p>
         </div>
       </section>

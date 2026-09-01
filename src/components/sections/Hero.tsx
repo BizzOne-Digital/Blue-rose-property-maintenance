@@ -69,7 +69,7 @@ export function Hero() {
   const [selectedService, setSelectedService] = useState<ServiceId>("carpet-cleaning");
 
   return (
-    <section className="relative min-h-[calc(100dvh-7.5rem)] overflow-hidden bg-navy pt-[7.5rem] pb-28 md:pb-0">
+    <section className="relative min-h-[calc(100dvh-var(--site-header-offset))] overflow-hidden bg-navy page-header-offset pb-28 md:pb-0">
       {/* Background image */}
       <div className="absolute inset-0">
         <AnimatePresence mode="wait">
@@ -104,7 +104,7 @@ export function Hero() {
       </div>
 
       {/* Hero content */}
-      <div className="relative z-10 mx-auto flex min-h-[calc(100dvh-10rem)] max-w-7xl flex-col justify-center px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
+      <div className="relative z-10 mx-auto flex min-h-[calc(100dvh-var(--site-header-offset)-2rem)] max-w-7xl flex-col justify-center px-4 py-8 sm:px-6 lg:px-8 lg:py-12">
         <div className="w-full max-w-2xl min-w-0">
           <motion.p
             className="mb-4 text-[10px] font-semibold tracking-[0.12em] text-electric uppercase sm:text-xs sm:tracking-[0.2em]"

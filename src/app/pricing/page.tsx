@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 export default function PricingPage() {
   return (
     <>
-      <section className="relative overflow-hidden gradient-bg-radial pt-28 pb-16 sm:pt-32 sm:pb-20">
+      <section className="relative overflow-hidden gradient-bg-radial page-header-offset pb-16 sm:pb-20">
         <div className="mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
           <span className="text-sm font-semibold tracking-wider text-electric uppercase">
             Pricing
