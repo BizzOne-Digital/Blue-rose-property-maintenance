@@ -38,22 +38,16 @@ export function Header() {
         <div className="border-b border-navy/5 bg-white">
           <Link
             href="/"
-            className="mx-auto flex max-w-7xl flex-col items-center px-4 py-3 sm:py-4"
+            className="mx-auto flex max-w-7xl items-center justify-center px-4 py-2 sm:py-3"
           >
             <Image
               src="/images/blue-rose-logo.png"
-              alt="Blue Rose Property Maintenance logo"
-              width={96}
-              height={96}
-              className="h-16 w-16 object-contain sm:h-20 sm:w-20"
+              alt="Blue Rose Property Maintenance"
+              width={120}
+              height={120}
+              className="h-20 w-auto object-contain sm:h-24"
               priority
             />
-            <p className="mt-2 font-heading text-base font-bold tracking-tight text-navy sm:text-lg">
-              Blue Rose
-            </p>
-            <p className="text-[10px] font-semibold tracking-[0.18em] text-royal uppercase sm:text-xs">
-              Property Maintenance
-            </p>
           </Link>
         </div>
 

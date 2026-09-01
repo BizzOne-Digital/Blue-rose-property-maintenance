@@ -46,12 +46,12 @@ html {
   scroll-behavior: smooth;
   overflow-x: clip;
   max-width: 100%;
-  --site-header-offset: 11.5rem;
+  --site-header-offset: 9.5rem;
 }
 
 @media (min-width: 640px) {
   html {
-    --site-header-offset: 13rem;
+    --site-header-offset: 10.5rem;
   }
 }
 

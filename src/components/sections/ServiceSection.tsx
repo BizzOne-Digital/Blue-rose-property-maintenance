@@ -44,7 +44,7 @@ export function ServiceSection({ service, index }: ServiceSectionProps) {
     <section
       id={service.id}
       className={cn(
-        "relative w-full scroll-mt-48 overflow-hidden py-16 sm:scroll-mt-52 sm:py-24",
+        "relative w-full scroll-mt-40 overflow-hidden py-16 sm:scroll-mt-44 sm:py-24",
         isSnow && "bg-gradient-to-b from-ice to-soft-gray"
       )}
     >
