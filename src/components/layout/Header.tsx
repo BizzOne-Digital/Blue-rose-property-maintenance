@@ -43,9 +43,9 @@ export function Header() {
             <Image
               src="/images/blue-rose-logo.png"
               alt="Blue Rose Property Maintenance"
-              width={120}
-              height={120}
-              className="h-20 w-auto object-contain sm:h-24"
+              width={134}
+              height={134}
+              className="h-[5.6rem] w-auto object-contain sm:h-[6.72rem]"
               priority
             />
           </Link>
