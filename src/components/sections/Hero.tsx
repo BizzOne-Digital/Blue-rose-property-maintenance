@@ -69,7 +69,8 @@ export function Hero() {
   const [selectedService, setSelectedService] = useState<ServiceId>("carpet-cleaning");
 
   return (
-    <section className="relative min-h-[calc(100dvh-var(--site-header-offset))] overflow-hidden bg-navy page-header-offset pb-28 md:pb-0">
+    <>
+    <section className="relative min-h-[calc(100dvh-var(--site-header-offset))] overflow-hidden bg-navy page-header-offset pb-20 md:pb-0">
       {/* Background image */}
       <div className="absolute inset-0">
         <AnimatePresence mode="wait">
@@ -254,12 +255,6 @@ export function Hero() {
               );
             })}
           </div>
-
-          {selectedService === "carpet-cleaning" && (
-            <div className="rounded-xl bg-white p-4 shadow-xl">
-              <CarpetPricePickMenu />
-            </div>
-          )}
         </div>
       </div>
 
@@ -280,6 +275,15 @@ export function Hero() {
         </svg>
       </div>
     </section>
+
+    {selectedService === "carpet-cleaning" && (
+      <div className="border-b border-navy/5 bg-white px-4 py-6 shadow-sm md:hidden">
+        <div className="mx-auto max-w-lg">
+          <CarpetPricePickMenu />
+        </div>
+      </div>
+    )}
+    </>
   );
 }
 
