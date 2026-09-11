@@ -34,7 +34,7 @@ const contactCards = [
   {
     icon: Clock,
     title: "Business Hours",
-    value: `${siteConfig.businessHours.weekdays} | ${siteConfig.businessHours.saturday}`,
+    value: siteConfig.businessHours.display,
   },
 ];
 

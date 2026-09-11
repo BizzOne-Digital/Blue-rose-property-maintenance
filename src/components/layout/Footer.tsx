@@ -108,9 +108,7 @@ export function Footer() {
               <li className="flex items-start gap-2">
                 <Clock className="mt-0.5 h-4 w-4 shrink-0 text-electric" />
                 <div>
-                  <p>{siteConfig.businessHours.weekdays}</p>
-                  <p>{siteConfig.businessHours.saturday}</p>
-                  <p>{siteConfig.businessHours.sunday}</p>
+                  <p>{siteConfig.businessHours.display}</p>
                 </div>
               </li>
             </ul>

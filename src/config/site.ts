@@ -9,11 +9,9 @@ export const siteConfig = {
     "Professional carpet cleaning, home cleaning, lawn care and snow removal in Regina from one trusted property maintenance team.",
   url: "https://www.bluerosepropertymaintenance.com", // Replace with live domain
   email: "Bluerosepm9@gmail.com",
-  phone: "(000) 000-0000", // Update with business phone number
+  phone: "(306) 393-9988",
   businessHours: {
-    weekdays: "Monday – Friday: 8:00 AM – 6:00 PM",
-    saturday: "Saturday: 9:00 AM – 4:00 PM",
-    sunday: "Sunday: Closed",
+    display: "8:00 AM – 6:00 PM, 7 days a week",
   },
   googleRating: 5.0,
   social: {

@@ -144,8 +144,9 @@ const HOME_BEDROOM_PRICES: Record<BedroomCount, number> = {
 const homeCleaningAddons = [
   { label: "Carpet cleaning — per room", price: CARPET_PER_ROOM_PRICE },
   { label: "Carpet cleaning — living room", price: CARPET_LIVING_ROOM_PRICE },
-  { label: "Fridge cleaning", price: 30 },
-  { label: "Stove cleaning", price: 30 },
+  { label: "Inside fridge cleaning", price: 50 },
+  { label: "Inside oven cleaning", price: 50 },
+  { label: "Inside cabinets & drawers", price: 50 },
   { label: "Move-out cleaning", price: null },
 ] as const;
 
@@ -634,7 +635,7 @@ function BookingWizardInner() {
                 <div>
                   <p className="mb-1 text-sm font-medium text-navy">Add-ons (optional)</p>
                   <p className="mb-3 text-xs text-navy/50">
-                    Add carpet cleaning, appliance cleaning, or move-out service
+                    Add carpet cleaning, inside fridge/oven/cabinet cleaning, or move-out service
                   </p>
                   <div className="flex flex-wrap gap-2">
                     {homeCleaningAddons.map((addon) => (
