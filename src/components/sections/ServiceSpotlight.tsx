@@ -31,7 +31,7 @@ export function ServiceSpotlight() {
               className="font-heading text-3xl font-bold text-navy md:text-5xl"
             />
             <p className="mt-6 text-lg leading-relaxed text-navy/70">
-              Professional extraction helps lift embedded dirt, refresh worn fibres and give your rooms and living rooms a cleaner, brighter appearance.
+              {carpetService.description}
             </p>
 
             <ul className="mt-8 space-y-3">
