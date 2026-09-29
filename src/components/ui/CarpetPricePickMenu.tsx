@@ -6,6 +6,7 @@ import {
   carpetAddonOptions,
   carpetPackageIncludesLabel,
   carpetPlanOptions,
+  CARPET_MINIMUM_NOTE,
   formatCarpetPrice,
   type CarpetPlanId,
 } from "@/data/carpet-pricing";
@@ -15,6 +16,7 @@ interface CarpetPricePickMenuProps {
   className?: string;
   interactive?: boolean;
   showAddons?: boolean;
+  showMinimumNote?: boolean;
   selectedPlan?: CarpetPlanId;
   selectedAddons?: string[];
   onPlanSelect?: (plan: CarpetPlanId) => void;
@@ -34,6 +36,7 @@ export function CarpetPricePickMenu({
   className,
   interactive = false,
   showAddons = false,
+  showMinimumNote = false,
   selectedPlan,
   selectedAddons = [],
   onPlanSelect,
@@ -185,6 +188,12 @@ export function CarpetPricePickMenu({
             })}
           </div>
         </div>
+      )}
+
+      {showMinimumNote && (
+        <p className={cn("text-xs", isDark ? "text-ice/60" : "text-navy/50")}>
+          {CARPET_MINIMUM_NOTE}
+        </p>
       )}
     </div>
   );

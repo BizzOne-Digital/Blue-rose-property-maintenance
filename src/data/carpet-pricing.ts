@@ -1,6 +1,9 @@
 export const CARPET_PER_ROOM_PRICE = 59.99;
 export const CARPET_LIVING_ROOM_PRICE = 90;
 export const CARPET_HALLWAY_PRICE = 50;
+export const CARPET_KITCHEN_PRICE = 50;
+export const CARPET_MINIMUM = 99;
+export const CARPET_MINIMUM_NOTE = "$99 minimum service applies to carpet cleaning bookings.";
 
 export const CARPET_PACKAGE_INCLUDES = [
   "Vacuum",
@@ -16,6 +19,22 @@ export const carpetPlanOptions = [
     priceLabel: "$99",
     description: "Quick pick — living room package.",
     quickPick: true,
+  },
+  {
+    id: "1-standard-bedroom",
+    label: "1 standard bedroom",
+    price: 60,
+    priceLabel: "$60",
+    description: "One standard bedroom ($99 minimum service applies).",
+    quickPick: false,
+  },
+  {
+    id: "2-standard-bedrooms",
+    label: "2 standard bedrooms",
+    price: 120,
+    priceLabel: "$120",
+    description: "Two standard bedrooms.",
+    quickPick: false,
   },
   {
     id: "1br-living",
@@ -61,6 +80,7 @@ export interface CarpetAddonOption {
 
 export const carpetAddonOptions: CarpetAddonOption[] = [
   { id: "hallway", label: "Hallway", price: CARPET_HALLWAY_PRICE },
+  { id: "kitchen", label: "Kitchen carpet cleaning", price: CARPET_KITCHEN_PRICE },
   { id: "rug", label: "Rug", price: 60 },
   { id: "stairs", label: "Stairs", price: 75 },
   { id: "couch", label: "Couch cleaning", price: 99 },
@@ -90,8 +110,10 @@ export function calculateCarpetEstimate(planId: CarpetPlanId | undefined, addons
     return sum + (match?.price ?? 0);
   }, 0);
 
-  return addonTotal > 0
-    ? `$${(plan.price + addonTotal).toFixed(0)} estimated`
+  const total = Math.max(CARPET_MINIMUM, plan.price + addonTotal);
+
+  return total > plan.price || addonTotal > 0
+    ? `$${total.toFixed(0)} estimated`
     : `$${plan.price}`;
 }
 

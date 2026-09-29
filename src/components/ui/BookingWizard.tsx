@@ -50,6 +50,8 @@ const bookingSchema = z
     carpetPlan: z
       .enum([
         "living-only",
+        "1-standard-bedroom",
+        "2-standard-bedrooms",
         "1br-living",
         "1br-living-hallway",
         "2br-living-hallway",
@@ -381,6 +383,7 @@ function BookingWizardInner() {
         ? [
             `Plan: ${getCarpetPlanById(data.carpetPlan!)?.label ?? data.carpetPlan}`,
             "Includes: Vacuum, pre-stain treatment & deep carpet cleaning",
+            "$99 minimum service applies",
             `Add-ons: ${data.addons?.join(", ") || "None"}`,
           ]
         : data.service === "lawn-care"
@@ -537,6 +540,7 @@ function BookingWizardInner() {
                 <CarpetPricePickMenu
                   interactive
                   showAddons
+                  showMinimumNote
                   selectedPlan={carpetPlan}
                   selectedAddons={selectedAddons}
                   planError={errors.carpetPlan?.message}

@@ -17,14 +17,17 @@ export const pricingCategories: PricingCategory[] = [
   {
     id: "carpet-cleaning",
     name: "Carpet Cleaning",
-    note: "Every package includes vacuum, pre-stain treatment, and deep carpet cleaning.",
+    note: "Every package includes vacuum, pre-stain treatment, and deep carpet cleaning. $99 minimum service applies.",
     items: [
       { label: "Living room only (quick pick)", price: "$99" },
+      { label: "1 standard bedroom", price: "$60 ($99 minimum applies)" },
+      { label: "2 standard bedrooms", price: "$120" },
       { label: "1 bedroom + living room", price: "$150" },
       { label: "1 bedroom + living room & hallway", price: "$180" },
       { label: "2 bedrooms + living room & hallway", price: "$250" },
       { label: "Living room + hallway", price: "$150" },
       { label: "Hallway add-on", price: "$50" },
+      { label: "Kitchen carpet cleaning add-on", price: "$50" },
       { label: "Rug", price: "$60" },
       { label: "Stairs", price: "$75" },
       { label: "Couch", price: "$99" },

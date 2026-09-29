@@ -5,7 +5,7 @@ import { siteConfig } from "@/config/site";
 export const metadata: Metadata = {
   title: "Book a Service",
   description:
-    `Request a booking for carpet cleaning, lawn care or snow removal in ${siteConfig.city}.`,
+    `Request a booking for carpet cleaning, lawn care or snow removal in ${siteConfig.city}. Carpet cleaning has a $99 minimum service charge.`,
 };
 
 export default function BookingPage() {
@@ -21,6 +21,7 @@ export default function BookingPage() {
           </h1>
           <p className="mx-auto mt-4 max-w-xl text-sm text-ice/70 sm:text-base">
             Complete the form below and we&apos;ll review your request and contact you to confirm.
+            Carpet cleaning has a $99 minimum service charge.
           </p>
         </div>
       </section>
