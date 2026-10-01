@@ -1,39 +1,31 @@
-/** Unsplash — trade / profile figures (client-requested representation). */
-const stockFigures = {
-  maintenancePro:
-    "https://images.unsplash.com/photo-1621905252507-b35492cc74b4?w=1200&q=80",
-  serviceTeamMember:
-    "https://images.unsplash.com/photo-1519345182560-3f2917c472ef?w=1200&q=80",
-} as const;
-
 export const images = {
   carpetCleaning: {
-    hero: stockFigures.maintenancePro,
-    equipment: stockFigures.maintenancePro,
+    hero: "/images/carpet-cleaning-hero.jpg",
+    equipment: "/images/carpet-cleaning-detail.jpg",
     before: "/images/carpet-before.png",
     after: "/images/carpet-after.png",
-    extraction: stockFigures.maintenancePro,
+    extraction: "/images/carpet-cleaning-stairs.jpg",
   },
   homeCleaning: {
-    hero: stockFigures.serviceTeamMember,
-    detail: stockFigures.maintenancePro,
+    hero: "/images/home-cleaning-living-room.jpg",
+    detail: "/images/home-cleaning-kitchen.jpg",
   },
   lawnCare: {
-    hero: stockFigures.maintenancePro,
-    mowing: stockFigures.maintenancePro,
-    stripes: stockFigures.serviceTeamMember,
-    cleanup: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&q=80",
+    hero: "/images/lawn-care-hero.jpg",
+    mowing: "/images/lawn-care-mowing.jpg",
+    stripes: "/images/lawn-care-hero.jpg",
+    cleanup: "/images/lawn-care-cleanup.jpg",
   },
   snowRemoval: {
-    hero: stockFigures.serviceTeamMember,
-    blower: stockFigures.maintenancePro,
-    driveway: stockFigures.serviceTeamMember,
-    iceMelt: "https://images.unsplash.com/photo-1449824913935-59a10b8d2001?w=1200&q=80",
+    hero: "/images/snow-removal-hero.jpg",
+    blower: "/images/snow-removal-blower.jpg",
+    driveway: "/images/snow-removal-shovel.jpg",
+    iceMelt: "/images/snow-removal-shovel.jpg",
   },
   seasonal: {
-    spring: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&q=80",
-    summer: "/images/lawn-care-hero.png",
-    fall: "/images/carpet-cleaning-hero.png",
-    winter: "/images/snow-removal-hero.png",
+    spring: "/images/lawn-care-cleanup.jpg",
+    summer: "/images/lawn-care-mowing.jpg",
+    fall: "/images/carpet-cleaning-hero.jpg",
+    winter: "/images/snow-removal-hero.jpg",
   },
 } as const;

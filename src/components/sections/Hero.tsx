@@ -89,7 +89,7 @@ export function Hero() {
               src={serviceImages[selectedService]}
               alt={`${getServiceById(selectedService)?.name ?? "Property maintenance"} service`}
               fill
-              className="object-cover object-center"
+              className="object-cover object-center lg:object-[65%_center]"
               priority={selectedService === "carpet-cleaning"}
               sizes="100vw"
             />
@@ -108,11 +108,13 @@ export function Hero() {
       </div>
 
       {/* Hero content */}
-      <div className="relative z-10 mx-auto flex min-h-[calc(100dvh-var(--site-header-offset)-2rem)] max-w-7xl flex-col justify-center px-4 py-8 sm:px-6 lg:px-8 lg:py-12">
-        <div className="w-full max-w-2xl min-w-0">
+      <div
+        className="relative z-10 mx-auto grid min-h-[calc(100dvh-var(--site-header-offset)-2rem)] max-w-7xl items-center gap-8 px-4 py-8 sm:px-6 lg:grid-cols-[minmax(0,1fr)_min(20rem,22rem)] lg:gap-10 lg:px-8 lg:py-12 xl:grid-cols-[minmax(0,1fr)_min(24rem,28rem)]"
+      >
+        <div className="w-full min-w-0 max-w-2xl lg:max-w-none">
           <motion.a
             href={telHref}
-            className="mb-4 inline-flex items-center gap-2 rounded-md border border-white/30 bg-white/10 px-4 py-2 text-sm font-bold text-white backdrop-blur-sm transition-colors hover:bg-white/20 sm:text-base"
+            className="mb-4 inline-flex flex-wrap items-center gap-x-2 gap-y-1 rounded-md border border-white/30 bg-white/10 px-4 py-2 text-sm font-bold text-white backdrop-blur-sm transition-colors hover:bg-white/20 sm:text-base lg:hidden"
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
@@ -183,16 +185,14 @@ export function Hero() {
             <GoogleStarsBadge />
           </motion.div>
         </div>
-      </div>
 
-      {/* Floating service selector — bottom right */}
-      <motion.div
-        className="absolute right-4 bottom-16 z-20 hidden md:right-8 md:bottom-20 md:block lg:right-12"
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.8, duration: 0.6 }}
-      >
-        <div className="flex flex-col items-end gap-3">
+        {/* Desktop: service picker + pricing in flow (avoids overlapping header) */}
+        <motion.div
+          className="hidden min-w-0 flex-col gap-3 lg:flex"
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5, duration: 0.5 }}
+        >
           <div className="flex overflow-hidden rounded-xl bg-white shadow-2xl shadow-navy/20">
             {activeServices.map((service) => {
               const Icon = serviceIcons[service.id];
@@ -203,7 +203,7 @@ export function Hero() {
                   type="button"
                   onClick={() => setSelectedService(service.id)}
                   className={cn(
-                    "flex w-[7.5rem] flex-col items-center gap-2 px-4 py-5 transition-all lg:w-[8.5rem]",
+                    "flex min-w-0 flex-1 flex-col items-center gap-2 px-2 py-4 transition-all sm:px-3",
                     active ? "bg-ice" : "hover:bg-gray-50"
                   )}
                   aria-pressed={active}
@@ -211,7 +211,7 @@ export function Hero() {
                   <Icon active={active} />
                   <span
                     className={cn(
-                      "text-center text-[11px] leading-tight font-semibold",
+                      "text-center text-[10px] leading-tight font-semibold sm:text-[11px]",
                       active ? "text-royal" : "text-gray-400"
                     )}
                   >
@@ -226,16 +226,16 @@ export function Hero() {
             <motion.div
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              className="w-[min(100vw-2rem,28rem)] rounded-xl bg-white p-4 shadow-2xl shadow-navy/20"
+              className="max-h-[min(52vh,28rem)] overflow-y-auto rounded-xl bg-white p-4 shadow-2xl shadow-navy/20"
             >
               <CarpetPricePickMenu />
             </motion.div>
           )}
-        </div>
-      </motion.div>
+        </motion.div>
+      </div>
 
       {/* Mobile service selector */}
-      <div className="absolute right-0 bottom-16 left-0 z-20 px-3 sm:px-4 md:hidden">
+      <div className="absolute right-0 bottom-16 left-0 z-20 px-3 sm:px-4 lg:hidden">
         <div className="mx-auto flex max-w-full flex-col gap-2">
           <div className="flex gap-2 overflow-x-auto rounded-xl bg-white p-2 shadow-xl no-scrollbar">
             {activeServices.map((service) => {
@@ -277,7 +277,7 @@ export function Hero() {
     </section>
 
     {selectedService === "carpet-cleaning" && (
-      <div className="border-b border-navy/5 bg-white px-4 py-6 shadow-sm md:hidden">
+      <div className="border-b border-navy/5 bg-white px-4 py-6 shadow-sm lg:hidden">
         <div className="mx-auto max-w-lg">
           <CarpetPricePickMenu />
         </div>
