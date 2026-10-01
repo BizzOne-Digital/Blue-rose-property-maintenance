@@ -17,7 +17,7 @@ const contactCards = [
   {
     icon: Phone,
     title: "Phone",
-    value: siteConfig.phone,
+    value: `${siteConfig.phoneCallToAction} · ${siteConfig.phone}`,
     href: `tel:${formatPhoneForTel(siteConfig.phone)}`,
   },
   {

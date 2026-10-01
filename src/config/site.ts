@@ -12,8 +12,9 @@ export const siteConfig = {
   url: "https://www.bluerosepropertymaintenance.com", // Replace with live domain
   email: "Bluerosepm9@gmail.com",
   phone: "(306) 393-9988",
+  phoneCallToAction: "For a Quote",
   businessHours: {
-    display: "8:00 AM – 6:00 PM, 7 days a week",
+    display: "10:00 AM – 6:00 PM, 7 days a week",
   },
   social: {
     google: "#", // Replace with Google Business profile URL

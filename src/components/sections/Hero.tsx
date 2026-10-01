@@ -118,7 +118,9 @@ export function Hero() {
             transition={{ delay: 0.1 }}
           >
             <Phone className="h-4 w-4 shrink-0" aria-hidden="true" />
-            {siteConfig.phone}
+            <span>{siteConfig.phoneCallToAction}</span>
+            <span className="text-white/60" aria-hidden="true">·</span>
+            <span>{siteConfig.phone}</span>
           </motion.a>
 
           <motion.p

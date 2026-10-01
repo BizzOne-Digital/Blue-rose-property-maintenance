@@ -1,25 +1,33 @@
+/** Unsplash — trade / profile figures (client-requested representation). */
+const stockFigures = {
+  maintenancePro:
+    "https://images.unsplash.com/photo-1621905252507-b35492cc74b4?w=1200&q=80",
+  serviceTeamMember:
+    "https://images.unsplash.com/photo-1519345182560-3f2917c472ef?w=1200&q=80",
+} as const;
+
 export const images = {
   carpetCleaning: {
-    hero: "/images/carpet-cleaning-hero.png",
-    equipment: "/images/carpet-cleaning-hero.png",
+    hero: stockFigures.maintenancePro,
+    equipment: stockFigures.maintenancePro,
     before: "/images/carpet-before.png",
     after: "/images/carpet-after.png",
-    extraction: "/images/carpet-cleaning-hero.png",
+    extraction: stockFigures.maintenancePro,
   },
   homeCleaning: {
-    hero: "https://images.unsplash.com/photo-1628177142898-93e36e4e3a50?w=1200&q=80",
-    detail: "https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=1200&q=80",
+    hero: stockFigures.serviceTeamMember,
+    detail: stockFigures.maintenancePro,
   },
   lawnCare: {
-    hero: "/images/lawn-care-hero.png",
-    mowing: "/images/lawn-care-hero.png",
-    stripes: "/images/lawn-care-hero.png",
+    hero: stockFigures.maintenancePro,
+    mowing: stockFigures.maintenancePro,
+    stripes: stockFigures.serviceTeamMember,
     cleanup: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&q=80",
   },
   snowRemoval: {
-    hero: "/images/snow-removal-hero.png",
-    blower: "/images/snow-removal-hero.png",
-    driveway: "/images/snow-removal-hero.png",
+    hero: stockFigures.serviceTeamMember,
+    blower: stockFigures.maintenancePro,
+    driveway: stockFigures.serviceTeamMember,
     iceMelt: "https://images.unsplash.com/photo-1449824913935-59a10b8d2001?w=1200&q=80",
   },
   seasonal: {

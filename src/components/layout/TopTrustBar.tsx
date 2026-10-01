@@ -24,6 +24,8 @@ export function TopTrustBar({ embedded = false }: { embedded?: boolean }) {
           className="inline-flex items-center gap-2 rounded-md bg-white px-4 py-1.5 text-sm font-bold text-[#0056b3] shadow-sm transition-colors hover:bg-ice"
         >
           <Phone className="h-4 w-4 shrink-0" aria-hidden="true" />
+          <span>{siteConfig.phoneCallToAction}</span>
+          <span className="text-[#0056b3]/40" aria-hidden="true">·</span>
           <span>{siteConfig.phone}</span>
         </a>
       </div>

@@ -95,7 +95,7 @@ export function Footer() {
               <li className="flex items-start gap-2">
                 <Phone className="mt-0.5 h-4 w-4 shrink-0 text-electric" />
                 <a href={`tel:${formatPhoneForTel(siteConfig.phone)}`} className="hover:text-white">
-                  {siteConfig.phone}
+                  {siteConfig.phoneCallToAction} · {siteConfig.phone}
                 </a>
               </li>
               <li className="flex items-start gap-2">
