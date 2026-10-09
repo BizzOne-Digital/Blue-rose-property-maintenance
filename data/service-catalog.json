@@ -1,0 +1,303 @@
+{
+  "updatedAt": "2026-10-09T23:34:44.283Z",
+  "services": [
+    {
+      "id": "carpet-cleaning",
+      "name": "Carpet Cleaning",
+      "active": true,
+      "featured": true,
+      "mainPriceDisplay": "Packages from $99",
+      "pricingNote": "Every package includes vacuum, pre-stain treatment, and deep carpet cleaning.",
+      "packageIncludes": [
+        "Vacuum",
+        "Pre-stain treatment",
+        "Deep carpet cleaning"
+      ],
+      "shortDescription": "Thorough carpet cleaning for homes, apartments, offices, move-outs, and rental properties.",
+      "description": "Bring your carpets back to life. We provide thorough carpet cleaning that helps remove dirt, stains, pet messes, odors, and everyday buildup.",
+      "image": "/images/carpet-cleaning-hero.jpg",
+      "items": [
+        "Vacuum, pre-stain treatment & deep carpet cleaning in every package",
+        "Living room only from $99",
+        "Bedroom + living room packages from $150",
+        "Hallway add-on $50",
+        "Pet odor & dirt removal",
+        "Great for move-in/move-out cleaning"
+      ],
+      "benefits": [
+        "Vacuum, pre-stain treatment & deep cleaning included",
+        "Clear package pricing",
+        "Stain and spot treatment",
+        "Fast, professional service",
+        "Great for move-in/move-out cleaning",
+        "Reliable local service"
+      ],
+      "bookingMode": "plans",
+      "plans": [
+        {
+          "id": "living-only",
+          "label": "Living room only",
+          "price": 99,
+          "description": "Quick pick — living room package.",
+          "quickPick": true
+        },
+        {
+          "id": "1-standard-bedroom",
+          "label": "1 standard bedroom",
+          "price": 60,
+          "description": "One standard bedroom."
+        },
+        {
+          "id": "3-standard-bedrooms",
+          "label": "2 standard bedrooms",
+          "price": 120,
+          "description": "Two standard bedrooms."
+        },
+        {
+          "id": "1br-living",
+          "label": "1 bedroom + living room",
+          "price": 150,
+          "description": "One bedroom and living room."
+        },
+        {
+          "id": "1br-living-hallway",
+          "label": "1 bedroom + living room & hallway",
+          "price": 180,
+          "description": "One bedroom, living room, and hallway."
+        },
+        {
+          "id": "2br-living-hallway",
+          "label": "2 bedrooms + living room & hallway",
+          "price": 250,
+          "description": "Two bedrooms, living room, and hallway."
+        },
+        {
+          "id": "living-hallway",
+          "label": "Living room + hallway",
+          "price": 150,
+          "description": "Standard living room and hallway package."
+        }
+      ],
+      "addons": [
+        {
+          "id": "hallway",
+          "label": "Hallway",
+          "price": 50
+        },
+        {
+          "id": "kitchen",
+          "label": "Kitchen carpet cleaning",
+          "price": 50
+        },
+        {
+          "id": "rug",
+          "label": "Rug",
+          "price": 60
+        },
+        {
+          "id": "stairs",
+          "label": "Stairs",
+          "price": 75
+        },
+        {
+          "id": "couch",
+          "label": "Couch cleaning",
+          "price": 99
+        },
+        {
+          "id": "recliner",
+          "label": "Recliner cleaning",
+          "price": 65
+        },
+        {
+          "id": "mattress",
+          "label": "Mattress cleaning",
+          "price": 69,
+          "priceDisplay": "starting at $69"
+        }
+      ],
+      "extraPricingLines": []
+    },
+    {
+      "id": "home-cleaning",
+      "name": "Home Cleaning",
+      "active": false,
+      "featured": false,
+      "mainPriceDisplay": "Standard cleaning from $150",
+      "pricingNote": "Starting prices shown are for standard cleaning.",
+      "shortDescription": "Flexible residential cleaning for regular upkeep, detailed cleans and move-out preparation.",
+      "description": "Flexible residential cleaning for regular upkeep, detailed cleaning and move-out preparation.",
+      "image": "/images/home-cleaning-living-room.jpg",
+      "items": [
+        "Standard one-bedroom cleaning",
+        "Carpet cleaning add-ons",
+        "Inside fridge, oven, cabinets & drawers add-ons",
+        "Move-out cleaning"
+      ],
+      "benefits": [
+        "Regular and deep cleaning",
+        "Move-out preparation",
+        "Flexible scheduling",
+        "Residential property care"
+      ],
+      "bookingMode": "bedrooms",
+      "bedroomPrices": {
+        "1": 150,
+        "2": 225,
+        "3": 300
+      },
+      "plans": [],
+      "addons": [
+        {
+          "id": "carpet-room",
+          "label": "Carpet cleaning — per room",
+          "price": 59.99
+        },
+        {
+          "id": "carpet-living",
+          "label": "Carpet cleaning — living room",
+          "price": 90
+        },
+        {
+          "id": "fridge",
+          "label": "Inside fridge cleaning",
+          "price": 50
+        },
+        {
+          "id": "oven",
+          "label": "Inside oven cleaning",
+          "price": 50
+        },
+        {
+          "id": "cabinets",
+          "label": "Inside cabinets & drawers",
+          "price": 50
+        },
+        {
+          "id": "move-out",
+          "label": "Move-out cleaning",
+          "price": null,
+          "priceDisplay": "Quote on request"
+        }
+      ],
+      "extraPricingLines": [
+        {
+          "label": "Move-out cleaning",
+          "priceDisplay": "starting at $200"
+        },
+        {
+          "label": "One-bedroom move-out",
+          "priceDisplay": "$225+"
+        },
+        {
+          "label": "Two-bedroom move-out",
+          "priceDisplay": "$300+"
+        },
+        {
+          "label": "Three-bedroom move-out",
+          "priceDisplay": "$375+"
+        }
+      ]
+    },
+    {
+      "id": "lawn-care",
+      "name": "Lawn Care",
+      "active": true,
+      "featured": false,
+      "mainPriceDisplay": "from $60",
+      "shortDescription": "Keep outdoor areas neat, maintained and ready to enjoy all season long.",
+      "description": "Keep outdoor areas neat, maintained and ready to enjoy.",
+      "image": "/images/lawn-care-hero.png",
+      "items": [
+        "One-time lawn mowing",
+        "Yard cleanup"
+      ],
+      "benefits": [
+        "Professional mowing",
+        "Yard debris removal",
+        "Neat, maintained lawns",
+        "Residential outdoor care"
+      ],
+      "bookingMode": "property-size",
+      "plans": [
+        {
+          "id": "mowing",
+          "label": "One-time lawn mowing",
+          "price": 60,
+          "priceDisplay": "starting at $60",
+          "description": "Standard residential mowing."
+        }
+      ],
+      "addons": [
+        {
+          "id": "yard-cleanup",
+          "label": "Yard cleanup",
+          "price": 150,
+          "priceDisplay": "starting at $150"
+        }
+      ],
+      "extraPricingLines": []
+    },
+    {
+      "id": "snow-removal",
+      "name": "Snow Removal",
+      "active": true,
+      "featured": false,
+      "mainPriceDisplay": "One-time $60–$80 · $299/mo unlimited",
+      "shortDescription": "One-time or unlimited monthly residential snow removal — driveway, sidewalk, walkway and steps cleared.",
+      "description": "Choose one-time snow removal, unlimited monthly residential service, or commercial sidewalk clearing. Optional ice-melt add-on available.",
+      "image": "/images/snow-removal-hero.jpg",
+      "items": [
+        "One-time snow removal — $60–$80",
+        "Driveway, sidewalk, walkway & steps included",
+        "Unlimited snow removal — $299/mo",
+        "Commercial sidewalk snow removal — starting at $100 (call for quote)",
+        "Ice-melt add-on"
+      ],
+      "benefits": [
+        "One-time service $60–$80",
+        "Driveway, sidewalk, walkway & steps",
+        "Unlimited monthly residential option",
+        "Commercial sidewalks starting at $100",
+        "Ice-melt application available",
+        "Winter safety focus"
+      ],
+      "bookingMode": "plans",
+      "commercialNote": "Commercial sidewalk snow removal — starting at $100. Call for a quote.",
+      "plans": [
+        {
+          "id": "one-time",
+          "label": "One-time snow removal",
+          "price": 80,
+          "priceMin": 60,
+          "priceMax": 80,
+          "priceDisplay": "$60–$80",
+          "description": "Driveway + sidewalk + walkway + steps included.",
+          "billingPeriod": "one-time"
+        },
+        {
+          "id": "monthly-residential",
+          "label": "Unlimited snow removal",
+          "price": 299,
+          "priceDisplay": "$299/mo",
+          "description": "Unlimited residential snow removal throughout the season.",
+          "billingPeriod": "monthly"
+        }
+      ],
+      "addons": [
+        {
+          "id": "ice-melt",
+          "label": "Ice-melt application",
+          "price": 50,
+          "priceDisplay": "starting at $50"
+        }
+      ],
+      "extraPricingLines": [
+        {
+          "label": "Commercial sidewalk snow removal",
+          "priceDisplay": "Starting at $100 — call for quote"
+        }
+      ]
+    }
+  ]
+}
