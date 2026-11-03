@@ -30,9 +30,14 @@ export async function PUT(request: Request) {
   } catch (error) {
     console.error("Failed to save catalog:", error);
     if (error instanceof z.ZodError) {
-      const detail = error.errors[0]?.message ?? "Validation failed";
-      return NextResponse.json({ error: `Invalid catalog data: ${detail}` }, { status: 400 });
+      const issue = error.errors[0];
+      const detail = issue ? `${issue.path.join(" > ")}: ${issue.message}` : "Validation failed";
+      return NextResponse.json({ error: `Invalid catalog data (${detail})` }, { status: 400 });
     }
-    return NextResponse.json({ error: "Failed to save catalog" }, { status: 500 });
+    const reason = error instanceof Error ? error.message : "";
+    return NextResponse.json(
+      { error: reason ? `Failed to save catalog: ${reason}` : "Failed to save catalog" },
+      { status: 500 }
+    );
   }
 }

@@ -35,3 +35,6 @@ pnpm-debug.log*
 
 # testing
 coverage/
+
+# local-only admin uploads (production stores images in MongoDB)
+public/uploads/

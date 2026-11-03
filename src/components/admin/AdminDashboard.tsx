@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { Plus, Save, Trash2, LogOut } from "lucide-react";
+import { Plus, Save, Trash2, LogOut, Upload } from "lucide-react";
 import type { CatalogAddon, CatalogPlan, CatalogService, ServiceCatalog } from "@/lib/service-catalog/types";
 import { slugifyId } from "@/lib/service-catalog/format";
 import { CATALOG_UPDATED_EVENT, useCatalog } from "@/lib/service-catalog/client";
@@ -87,15 +87,43 @@ export function AdminDashboard({ initialCatalog }: { initialCatalog: ServiceCata
 
   const save = async () => {
     if (!catalog) return;
-    setSaving(true);
     setMessage(null);
     setError(null);
-    const res = await fetch("/api/admin/catalog", {
-      method: "PUT",
-      credentials: "include",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(catalog),
-    });
+    const ids = new Set<string>();
+    for (const svc of catalog.services) {
+      const name = svc.name || "A service";
+      if (!svc.name.trim() || !svc.id.trim() || !svc.mainPriceDisplay.trim()) {
+        setError(`${name}: name, service ID and main price are required.`);
+        return;
+      }
+      if (ids.has(svc.id)) {
+        setError(`Two services share the ID "${svc.id}". Service IDs must be unique.`);
+        return;
+      }
+      ids.add(svc.id);
+      if (!svc.shortDescription.trim() || !svc.description.trim()) {
+        setError(`${name}: short description and full description are required.`);
+        return;
+      }
+      if (svc.plans.some((p) => !p.label.trim()) || svc.addons.some((a) => !a.label.trim())) {
+        setError(`${name}: every plan and add-on needs a label.`);
+        return;
+      }
+    }
+    setSaving(true);
+    let res: Response;
+    try {
+      res = await fetch("/api/admin/catalog", {
+        method: "PUT",
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(catalog),
+      });
+    } catch {
+      setSaving(false);
+      setError("Could not reach the server. Check your connection and try again.");
+      return;
+    }
     setSaving(false);
     if (!res.ok) {
       const data = (await res.json().catch(() => ({}))) as { error?: string };
@@ -187,8 +215,31 @@ function ServiceEditor({
   const setPlans = (plans: CatalogPlan[]) => onChange({ plans });
   const setAddons = (addons: CatalogAddon[]) => onChange({ addons });
 
+  const [uploading, setUploading] = useState(false);
+  const [uploadError, setUploadError] = useState<string | null>(null);
+
+  const uploadImage = async (file: File) => {
+    setUploading(true);
+    setUploadError(null);
+    try {
+      const body = new FormData();
+      body.append("file", file);
+      const res = await fetch("/api/admin/upload", { method: "POST", credentials: "include", body });
+      const data = (await res.json().catch(() => ({}))) as { url?: string; error?: string };
+      if (!res.ok || !data.url) {
+        setUploadError(data.error ?? "Image upload failed.");
+        return;
+      }
+      onChange({ image: data.url });
+    } catch {
+      setUploadError("Image upload failed. Check your connection and try again.");
+    } finally {
+      setUploading(false);
+    }
+  };
+
   const addPlan = () => {
-    const id = slugifyId(`plan-${service.plans.length + 1}`) || `plan-${Date.now()}`;
+    const id = `plan-${Date.now()}`;
     setPlans([
       ...service.plans,
       { id, label: "New plan", price: 0, description: "" },
@@ -196,7 +247,7 @@ function ServiceEditor({
   };
 
   const addAddon = () => {
-    const id = slugifyId(`addon-${service.addons.length + 1}`) || `addon-${Date.now()}`;
+    const id = `addon-${Date.now()}`;
     setAddons([...service.addons, { id, label: "New add-on", price: 0 }]);
   };
 
@@ -268,11 +319,52 @@ function ServiceEditor({
             <option value="bedrooms">Bedrooms + add-ons (home cleaning)</option>
           </select>
         </Field>
-        <Field label="Hero image path">
+        <div className="sm:col-span-2">
+          <span className="mb-1 block text-xs font-semibold uppercase tracking-wide text-navy/60">
+            Service image
+          </span>
+          <div className="flex flex-wrap items-center gap-4">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={service.image}
+              alt={`${service.name} preview`}
+              className="h-24 w-36 rounded-lg border border-navy/10 object-cover"
+            />
+            <div>
+              <label className="inline-flex cursor-pointer items-center gap-2 rounded-lg border border-navy/15 bg-white px-4 py-2 text-sm font-semibold text-navy hover:border-royal/40">
+                <Upload className="h-4 w-4" /> {uploading ? "Uploading…" : "Upload new image"}
+                <input
+                  type="file"
+                  accept="image/jpeg,image/png,image/webp"
+                  className="hidden"
+                  disabled={uploading}
+                  onChange={(e) => {
+                    const file = e.target.files?.[0];
+                    e.target.value = "";
+                    if (file) void uploadImage(file);
+                  }}
+                />
+              </label>
+              <p className="mt-1 text-xs text-navy/50">
+                JPG, PNG or WebP, max 4 MB. Click &quot;Save changes to site&quot; after uploading.
+              </p>
+              {uploadError && <p className="mt-1 text-xs text-red-600">{uploadError}</p>}
+            </div>
+          </div>
+        </div>
+        <Field label="Short description (cards)">
           <input
             className={inputClass}
-            value={service.image}
-            onChange={(e) => onChange({ image: e.target.value })}
+            value={service.shortDescription}
+            onChange={(e) => onChange({ shortDescription: e.target.value })}
+          />
+        </Field>
+        <Field label="Full description">
+          <textarea
+            className={inputClass}
+            rows={3}
+            value={service.description}
+            onChange={(e) => onChange({ description: e.target.value })}
           />
         </Field>
         <Field label="Pricing page note">
@@ -283,6 +375,31 @@ function ServiceEditor({
           />
         </Field>
       </div>
+
+      {service.bedroomPrices && (
+        <div className="mt-6">
+          <h3 className="mb-3 font-heading text-lg font-bold text-navy">Bedroom prices ($)</h3>
+          <div className="grid gap-3 sm:grid-cols-3">
+            {(["1", "2", "3"] as const).map((n) => (
+              <Field key={n} label={`${n}-bedroom`}>
+                <input
+                  className={inputClass}
+                  type="number"
+                  value={service.bedroomPrices?.[n] ?? 0}
+                  onChange={(e) =>
+                    onChange({
+                      bedroomPrices: {
+                        ...(service.bedroomPrices as Record<"1" | "2" | "3", number>),
+                        [n]: Number(e.target.value),
+                      },
+                    })
+                  }
+                />
+              </Field>
+            ))}
+          </div>
+        </div>
+      )}
 
       <div className="mt-6">
         <div className="mb-3 flex items-center justify-between">

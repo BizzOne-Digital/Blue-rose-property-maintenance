@@ -57,8 +57,23 @@ export async function writeServiceCatalog(catalog: ServiceCatalog): Promise<Serv
       { $set: { data: parsed, updatedAt: new Date() } },
       { upsert: true }
     );
+    // The JSON file is only a seed/fallback; hosts like Vercel have a read-only filesystem.
+    try {
+      writeCatalogToFile(parsed);
+    } catch (error) {
+      console.warn("Catalog saved to MongoDB; skipped JSON file write:", error);
+    }
+    return parsed;
   }
-  writeCatalogToFile(parsed);
+
+  try {
+    writeCatalogToFile(parsed);
+  } catch (error) {
+    throw new Error(
+      "Cannot save: MONGODB_URI is not set and the server filesystem is read-only. Set MONGODB_URI in the hosting environment.",
+      { cause: error }
+    );
+  }
 
   return parsed;
 }
