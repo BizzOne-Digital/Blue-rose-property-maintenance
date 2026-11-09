@@ -17,7 +17,7 @@ export function TopTrustBar({ embedded = false }: { embedded?: boolean }) {
     >
       <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-2 px-4 sm:flex-row sm:gap-4 lg:px-8">
         <p className="text-center text-xs font-bold tracking-wide text-white uppercase sm:text-left sm:text-sm">
-          Professional Carpet Cleaning in {siteConfig.city}
+          Carpet Cleaning and Snow Removal in {siteConfig.city}
         </p>
         <a
           href={telHref}

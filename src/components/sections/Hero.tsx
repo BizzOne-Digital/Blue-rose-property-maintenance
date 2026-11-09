@@ -135,7 +135,7 @@ export function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.15 }}
           >
-            {siteConfig.city}&apos;s Trusted Carpet Cleaning Team
+            Affordable Carpet Cleaning. Driveway and Sidewalk Clearing.
           </motion.p>
 
           <motion.h1
@@ -144,9 +144,9 @@ export function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.25, duration: 0.6 }}
           >
-            Professional
-            <br />
             Carpet Cleaning
+            <br />
+            and Snow Removal
             <br />
             in {siteConfig.city}
           </motion.h1>
@@ -157,7 +157,7 @@ export function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
           >
-            Deep extraction for rooms, living rooms, stairs, upholstery and more — plus lawn care and snow removal from one trusted {siteConfig.city} team.
+            Affordable carpet cleaning for rooms, stairs and upholstery, plus driveway and sidewalk clearing — from one trusted {siteConfig.city} team.
           </motion.p>
 
           <motion.div
