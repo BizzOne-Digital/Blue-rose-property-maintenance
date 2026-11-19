@@ -86,6 +86,17 @@ export function ServiceSection({ service: serverService, index }: ServiceSection
               )}
               <div className="absolute inset-0 bg-gradient-to-t from-navy/40 to-transparent" />
             </div>
+            {catalogService?.secondaryImage && (
+              <div className="relative mt-3 aspect-[16/7] overflow-hidden sm:mt-4">
+                <Image
+                  src={catalogService.secondaryImage}
+                  alt={`${service.name} home and driveway`}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width:768px) 100vw, 50vw"
+                />
+              </div>
+            )}
           </motion.div>
 
           <div className={cn(isReversed && "lg:[direction:ltr]")}>

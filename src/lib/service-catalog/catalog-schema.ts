@@ -31,6 +31,7 @@ const serviceSchema = z.object({
   shortDescription: z.string().min(1),
   description: z.string().min(1),
   image: z.string().min(1),
+  secondaryImage: z.string().optional(),
   items: z.array(z.string()),
   benefits: z.array(z.string()),
   bookingMode: z.enum(["plans", "bedrooms", "property-size"]),

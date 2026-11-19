@@ -140,7 +140,8 @@
           "label": "Commercial sidewalk snow removal",
           "priceDisplay": "Starting at $100 — call for quote"
         }
-      ]
+      ],
+      "secondaryImage": "/images/snow-removal-shovel.jpg"
     },
     {
       "id": "junk-removal",

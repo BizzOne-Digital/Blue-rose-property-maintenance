@@ -37,6 +37,8 @@ export interface CatalogService {
   shortDescription: string;
   description: string;
   image: string;
+  /** Optional second photo shown beside the main one (e.g. home + driveway clearing). */
+  secondaryImage?: string;
   items: string[];
   benefits: string[];
   bookingMode: BookingMode;
