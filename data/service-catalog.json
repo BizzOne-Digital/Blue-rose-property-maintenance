@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-19T00:00:00.000Z",
+  "updatedAt": "2026-11-19T21:43:10.581Z",
   "services": [
     {
       "id": "lawn-care",
@@ -45,21 +45,24 @@
       "name": "Snow Removal",
       "active": true,
       "featured": false,
-      "mainPriceDisplay": "One-time $60–$80 · $299/mo unlimited",
-      "shortDescription": "One-time, monthly driveway or unlimited monthly residential snow removal.",
-      "description": "Choose one-time snow removal, a monthly driveway plan, or unlimited monthly residential service. Commercial sidewalk clearing and an optional ice-melt add-on are also available.",
+      "mainPriceDisplay": "One-time from $60 · Unlimited monthly from $250",
+      "shortDescription": "One-time or unlimited monthly snow removal, priced by garage size and driveway length.",
+      "description": "Choose one-time snow removal or an unlimited monthly plan, priced by your garage size and driveway length. Commercial sidewalk clearing and an optional ice-melt add-on are also available.",
       "image": "/images/snow-removal-hero.jpg",
       "items": [
-        "One-time snow removal — $60–$80",
-        "Monthly driveway snow removal — call for pricing",
-        "Unlimited snow removal — $299/mo",
+        "One-time — single garage home $60",
+        "One-time — double garage home $70",
+        "One-time — triple garage or long driveway, starting at $75",
+        "Unlimited monthly — single garage home $250/mo",
+        "Unlimited monthly — double garage home $299/mo",
+        "Unlimited monthly — triple garage or long driveway $350/mo",
         "Commercial sidewalk snow removal — starting at $100 (call for quote)",
         "Ice-melt add-on"
       ],
       "benefits": [
-        "One-time service $60–$80",
-        "Monthly driveway-only plan",
-        "Unlimited monthly residential option",
+        "One-time service from $60",
+        "Unlimited monthly plans from $250",
+        "Priced by garage size and driveway length",
         "Commercial sidewalks starting at $100",
         "Ice-melt application available",
         "Winter safety focus"
@@ -68,34 +71,60 @@
       "commercialNote": "Commercial sidewalk snow removal — starting at $100. Call for a quote.",
       "plans": [
         {
-          "id": "one-time",
-          "label": "One-time snow removal",
-          "price": 80,
-          "priceMin": 60,
-          "priceMax": 80,
-          "priceDisplay": "$60–$80",
-          "description": "Driveway + sidewalk + walkway + steps included.",
+          "id": "one-time-single",
+          "label": "Single garage home",
+          "price": 60,
+          "priceDisplay": "$60",
+          "description": "One-time clearing for a single garage home and driveway.",
           "billingPeriod": "one-time",
           "group": "One-time snow removal",
           "quickPick": true
         },
         {
-          "id": "monthly-driveway",
-          "label": "Monthly driveway snow removal",
-          "price": 0,
-          "priceDisplay": "Call for pricing",
-          "description": "Driveway only, cleared throughout the month.",
-          "billingPeriod": "monthly",
-          "group": "Monthly driveway only"
+          "id": "one-time-double",
+          "label": "Double garage home",
+          "price": 70,
+          "priceDisplay": "$70",
+          "description": "One-time clearing for a double garage home and driveway.",
+          "billingPeriod": "one-time",
+          "group": "One-time snow removal"
         },
         {
-          "id": "monthly-residential",
-          "label": "Unlimited snow removal",
+          "id": "one-time-triple",
+          "label": "Triple garage or long driveway",
+          "price": 75,
+          "priceDisplay": "starting at $75",
+          "description": "One-time clearing for a triple garage or long driveway.",
+          "billingPeriod": "one-time",
+          "group": "One-time snow removal"
+        },
+        {
+          "id": "monthly-single",
+          "label": "Single garage home",
+          "price": 250,
+          "priceDisplay": "$250/mo",
+          "description": "Unlimited snow removal all month for a single garage home.",
+          "billingPeriod": "monthly",
+          "group": "Monthly unlimited",
+          "quickPick": true
+        },
+        {
+          "id": "monthly-double",
+          "label": "Double garage home",
           "price": 299,
           "priceDisplay": "$299/mo",
-          "description": "Unlimited residential snow removal throughout the season.",
+          "description": "Unlimited snow removal all month for a double garage home.",
           "billingPeriod": "monthly",
-          "group": "Monthly unlimited (full residential)"
+          "group": "Monthly unlimited"
+        },
+        {
+          "id": "monthly-triple",
+          "label": "Triple garage or long driveway",
+          "price": 350,
+          "priceDisplay": "$350/mo",
+          "description": "Unlimited snow removal all month for a triple garage or long driveway.",
+          "billingPeriod": "monthly",
+          "group": "Monthly unlimited"
         }
       ],
       "addons": [

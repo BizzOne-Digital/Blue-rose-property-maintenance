@@ -415,7 +415,7 @@ function BookingWizardInner() {
                           <li key={group.id} className="flex justify-between gap-3">
                             <span>{group.label}</span>
                             <span className="shrink-0 font-semibold text-royal">
-                              {planPriceLabel(group.plans[0])}
+                              {group.plans.length > 1 ? "from " : ""}{planPriceLabel([...group.plans].sort((a, b) => a.price - b.price)[0]).replace(/^starting at /, "")}
                             </span>
                           </li>
                         ))}

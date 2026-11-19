@@ -62,7 +62,7 @@ export function calculatePlanEstimate(
   }
 
   const total = plan.price + addonTotal;
-  return addonTotal > 0 ? `${formatMoney(total)} estimated` : formatMoney(plan.price);
+  return addonTotal > 0 ? `${formatMoney(total)} estimated` : planPriceLabel(plan);
 }
 
 export function calculateBedroomEstimate(
