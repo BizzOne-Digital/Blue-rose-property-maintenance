@@ -52,7 +52,7 @@
       "items": [
         "One-time — single garage home $60",
         "One-time — double garage home $70",
-        "One-time — triple garage or long driveway, starting at $75",
+        "One-time — triple garage or long driveway $80",
         "Unlimited monthly — single garage home $250/mo",
         "Unlimited monthly — double garage home $299/mo",
         "Unlimited monthly — triple garage or long driveway $350/mo",
@@ -92,8 +92,8 @@
         {
           "id": "one-time-triple",
           "label": "Triple garage or long driveway",
-          "price": 75,
-          "priceDisplay": "starting at $75",
+          "price": 80,
+          "priceDisplay": "$80",
           "description": "One-time clearing for a triple garage or long driveway.",
           "billingPeriod": "one-time",
           "group": "One-time snow removal"
