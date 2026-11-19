@@ -18,7 +18,7 @@ export function ServicesIntro() {
     <section ref={ref} className="relative w-full overflow-hidden py-16 sm:py-24">
       <div className="pointer-events-none absolute top-20 left-0 w-full overflow-hidden" aria-hidden="true">
         <motion.div
-          className="font-heading font-bold text-ice select-none whitespace-nowrap"
+          className="font-heading font-bold text-chrome/25 select-none whitespace-nowrap"
           style={{ x: bgX, fontSize: "clamp(3rem, 12vw, 10rem)" }}
         >
           SERVICES
@@ -32,7 +32,7 @@ export function ServicesIntro() {
             className="font-heading text-3xl font-bold text-navy md:text-5xl"
           />
           <p className="mt-6 text-lg leading-relaxed text-navy/70">
-            From deep-cleaned carpets to maintained lawns and safe winter walkways, Blue Rose makes year-round property care simple.
+            Lawn care in the warm months, snow removal all winter and junk removal whenever you need it. Blue Rose makes year-round property care simple.
           </p>
         </div>
 

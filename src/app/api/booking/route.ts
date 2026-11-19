@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { sendBusinessEmail } from "@/lib/mail";
+import { siteConfig } from "@/config/site";
 
 const bookingSchema = z.object({
   subject: z.string().min(3),
@@ -13,9 +14,11 @@ export async function POST(request: Request) {
     const data = bookingSchema.parse(await request.json());
 
     await sendBusinessEmail({
-      subject: data.subject,
+      subject: `[Website Lead] ${data.subject}`,
       replyTo: data.replyTo,
-      text: data.body,
+      text: data.body.includes("Lead Source:")
+        ? data.body
+        : `Lead Source: ${siteConfig.leadSource}\n${data.body}`,
     });
 
     return NextResponse.json({ success: true });

@@ -10,7 +10,7 @@ export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
   title: "Services",
   description:
-    `Professional carpet cleaning, lawn care and snow removal services in ${siteConfig.city}.`,
+    `Professional lawn care, snow removal and junk removal services in ${siteConfig.city}.`,
 };
 
 export default async function ServicesPage() {
@@ -27,7 +27,7 @@ export default async function ServicesPage() {
             Professional Care for Every Part of Your Property
           </h1>
           <p className="mx-auto mt-6 max-w-2xl text-lg text-ice/70">
-            From deep carpet extraction to lawn mowing and winter snow removal — comprehensive property maintenance in {siteConfig.city}.
+            From lawn mowing to winter snow removal and junk hauling — comprehensive property maintenance in {siteConfig.city}.
           </p>
         </div>
       </section>

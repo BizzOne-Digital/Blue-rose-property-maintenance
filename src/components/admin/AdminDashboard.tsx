@@ -15,7 +15,7 @@ const emptyService = (): CatalogService => ({
   mainPriceDisplay: "",
   shortDescription: "",
   description: "",
-  image: "/images/carpet-cleaning-hero.jpg",
+  image: "/images/lawn-care-hero.png",
   items: [],
   benefits: [],
   bookingMode: "plans",
@@ -314,9 +314,9 @@ function ServiceEditor({
               onChange({ bookingMode: e.target.value as CatalogService["bookingMode"] })
             }
           >
-            <option value="plans">Plans + add-ons (carpet, snow)</option>
+            <option value="plans">Plans + add-ons (e.g. snow removal)</option>
             <option value="property-size">Property size + add-ons (lawn)</option>
-            <option value="bedrooms">Bedrooms + add-ons (home cleaning)</option>
+            <option value="bedrooms">Bedrooms + add-ons</option>
           </select>
         </Field>
         <div className="sm:col-span-2">
@@ -476,6 +476,48 @@ function ServiceEditor({
                     <Trash2 className="h-4 w-4" />
                   </button>
                 </div>
+                <select
+                  className={inputClass}
+                  aria-label="Billing type"
+                  value={plan.billingPeriod ?? ""}
+                  onChange={(e) => {
+                    const plans = [...service.plans];
+                    plans[i] = {
+                      ...plan,
+                      billingPeriod: (e.target.value || undefined) as CatalogPlan["billingPeriod"],
+                    };
+                    setPlans(plans);
+                  }}
+                >
+                  <option value="">Billing: auto-detect</option>
+                  <option value="one-time">One-time</option>
+                  <option value="monthly">Monthly</option>
+                </select>
+                <input
+                  className={inputClass}
+                  placeholder="Booking group e.g. Monthly driveway only"
+                  value={plan.group ?? ""}
+                  onChange={(e) => {
+                    const plans = [...service.plans];
+                    plans[i] = { ...plan, group: e.target.value || undefined };
+                    setPlans(plans);
+                  }}
+                />
+                <label className="flex items-center gap-2 text-sm text-navy/70">
+                  <input
+                    type="checkbox"
+                    checked={plan.quickPick ?? false}
+                    onChange={(e) => {
+                      const plans = [...service.plans];
+                      plans[i] = { ...plan, quickPick: e.target.checked || undefined };
+                      setPlans(plans);
+                    }}
+                  />
+                  Quick pick
+                </label>
+                <p className="text-xs text-navy/50 sm:col-span-2 lg:col-span-1">
+                  Plans in different groups are booked as separate choices.
+                </p>
               </div>
             ))}
           </div>

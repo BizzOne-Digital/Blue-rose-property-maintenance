@@ -16,22 +16,6 @@ export interface Testimonial {
 
 export const testimonials: Testimonial[] = [
   {
-    id: "1",
-    name: "Sarah M.",
-    service: "carpet-cleaning",
-    rating: 5,
-    text: "Our living room carpet looks brand new. The extraction made a huge difference and the team was professional from start to finish.",
-    date: "2025-11-12",
-  },
-  {
-    id: "2",
-    name: "James T.",
-    service: "home-cleaning",
-    rating: 5,
-    text: "Reliable home cleaning with clear pricing. They paid attention to detail and left our place spotless before guests arrived.",
-    date: "2025-10-28",
-  },
-  {
     id: "3",
     name: "Linda K.",
     service: "lawn-care",
@@ -47,30 +31,13 @@ export const testimonials: Testimonial[] = [
     text: "Driveway and walkway were cleared quickly after the storm. Ice-melt add-on made a real difference for safety.",
     date: "2025-01-22",
   },
-  {
-    id: "5",
-    name: "Emily R.",
-    service: "carpet-cleaning",
-    rating: 5,
-    text: "Had our couch and hallway carpets cleaned. Visible improvement right away. Booking was simple and confirmation was fast.",
-    date: "2025-08-03",
-  },
-  {
-    id: "6",
-    name: "David P.",
-    service: "home-cleaning",
-    rating: 5,
-    text: "Move-out cleaning was thorough and fairly priced. They handled appliances and every room with care.",
-    date: "2025-07-19",
-  },
 ];
 
 const allServiceFilterOptions: { id: ServiceId | "all"; label: string }[] = [
   { id: "all", label: "All Reviews" },
-  { id: "carpet-cleaning", label: "Carpet Cleaning" },
-  { id: "home-cleaning", label: "Home Cleaning" },
   { id: "lawn-care", label: "Lawn Care" },
   { id: "snow-removal", label: "Snow Removal" },
+  { id: "junk-removal", label: "Junk Removal" },
 ];
 
 export const allServiceFilterOptionsList = allServiceFilterOptions;

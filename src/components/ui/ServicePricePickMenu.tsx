@@ -1,20 +1,17 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
-import {
-  carpetPackageIncludesLabel,
-  formatCarpetPrice,
-  getCarpetAddons,
-  getCarpetPlans,
-} from "@/data/carpet-pricing";
+import { formatAddonPrice, packageIncludesLabel } from "@/data/plan-pricing";
 import { useCatalog } from "@/lib/service-catalog/client";
-import { planPriceLabel } from "@/lib/service-catalog/format";
+import { addonPriceLabel, groupPlans, planPriceLabel } from "@/lib/service-catalog/format";
 
-interface CarpetPricePickMenuProps {
-  serviceId?: string;
+interface ServicePricePickMenuProps {
+  serviceId: string;
   variant?: "light" | "dark" | "card";
   className?: string;
+  /** Interactive mode is used inside the booking form; otherwise rows link to /booking. */
   interactive?: boolean;
   showAddons?: boolean;
   selectedPlan?: string;
@@ -31,8 +28,8 @@ function buildBookingHref(serviceId: string, plan?: string, addon?: string) {
   return `/booking?${params.toString()}`;
 }
 
-export function CarpetPricePickMenu({
-  serviceId = "carpet-cleaning",
+export function ServicePricePickMenu({
+  serviceId,
   variant = "card",
   className,
   interactive = false,
@@ -42,18 +39,33 @@ export function CarpetPricePickMenu({
   onPlanSelect,
   onAddonToggle,
   planError,
-}: CarpetPricePickMenuProps) {
+}: ServicePricePickMenuProps) {
   const { getService } = useCatalog();
   const service = getService(serviceId);
+  const groups = service ? groupPlans(service.plans) : [];
 
-  if (!service) return null;
+  // Which service type tab is open. Follows the selected plan; otherwise the first group.
+  const selectedGroupId = groups.find((g) => g.plans.some((p) => p.id === selectedPlan))?.id;
+  const [openGroupId, setOpenGroupId] = useState<string | undefined>(undefined);
+  const activeGroup =
+    groups.find((g) => g.id === (openGroupId ?? selectedGroupId)) ?? groups[0];
 
-  const carpetPlanOptions = getCarpetPlans(service);
-  const carpetAddonOptions = getCarpetAddons(service);
-  const includesLabel = carpetPackageIncludesLabel(service);
+  if (!service || groups.length === 0 || !activeGroup) return null;
 
+  const includesLabel = packageIncludesLabel(service);
   const isDark = variant === "dark";
   const isCard = variant === "card";
+  const hasMultipleGroups = groups.length > 1;
+
+  const pickGroup = (groupId: string) => {
+    setOpenGroupId(groupId);
+    if (!interactive) return;
+    const group = groups.find((g) => g.id === groupId);
+    // Switching service type clears the old plan so a one-time plan can never be
+    // booked together with a monthly plan.
+    const next = group?.plans.find((p) => p.quickPick) ?? group?.plans[0];
+    if (next && !group?.plans.some((p) => p.id === selectedPlan)) onPlanSelect?.(next.id);
+  };
 
   const planRowClass = (selected: boolean) =>
     cn(
@@ -62,7 +74,7 @@ export function CarpetPricePickMenu({
         ? "border-royal bg-ice shadow-sm"
         : isDark
           ? "border-white/20 bg-white/10 hover:bg-white/15"
-          : "border-navy/10 bg-white hover:border-royal/30",
+          : "border-navy/10 bg-white hover:border-royal/40",
       !interactive && "block"
     );
 
@@ -75,15 +87,51 @@ export function CarpetPricePickMenu({
             isDark ? "text-ice/70" : "text-navy/50"
           )}
         >
-          Select plan
+          {hasMultipleGroups ? "Choose your service type" : "Select plan"}
         </p>
+
+        {hasMultipleGroups && (
+          <div
+            role="tablist"
+            aria-label="Service type"
+            className={cn(
+              "mt-2 grid gap-2",
+              groups.length === 2 ? "grid-cols-2" : "grid-cols-1 sm:grid-cols-3"
+            )}
+          >
+            {groups.map((group) => {
+              const active = group.id === activeGroup.id;
+              return (
+                <button
+                  key={group.id}
+                  type="button"
+                  role="tab"
+                  aria-selected={active}
+                  onClick={() => pickGroup(group.id)}
+                  className={cn(
+                    "rounded-xl border-2 px-3 py-2.5 text-center text-xs leading-tight font-bold transition-all",
+                    active
+                      ? "border-royal bg-royal text-white shadow-md shadow-royal/30"
+                      : isDark
+                        ? "border-white/20 bg-white/10 text-ice hover:bg-white/15"
+                        : "border-navy/10 bg-white text-navy/70 hover:border-royal/40"
+                  )}
+                >
+                  {group.label}
+                </button>
+              );
+            })}
+          </div>
+        )}
+
         {includesLabel ? (
-          <p className={cn("mt-1 text-xs", isDark ? "text-ice/60" : "text-navy/50")}>
+          <p className={cn("mt-2 text-xs", isDark ? "text-ice/60" : "text-navy/50")}>
             Every package includes {includesLabel.toLowerCase()}.
           </p>
         ) : null}
+
         <div className="mt-3 space-y-2">
-          {carpetPlanOptions.map((plan) => {
+          {activeGroup.plans.map((plan) => {
             const selected = selectedPlan === plan.id;
             const content = (
               <div className="flex items-start justify-between gap-3">
@@ -116,7 +164,7 @@ export function CarpetPricePickMenu({
                 </div>
                 <p
                   className={cn(
-                    "shrink-0 font-heading text-lg font-bold",
+                    "shrink-0 text-right font-heading text-base font-bold",
                     isDark ? "text-electric" : "text-royal"
                   )}
                 >
@@ -131,6 +179,7 @@ export function CarpetPricePickMenu({
                   key={plan.id}
                   type="button"
                   onClick={() => onPlanSelect?.(plan.id)}
+                  aria-pressed={selected}
                   className={planRowClass(selected)}
                 >
                   {content}
@@ -152,7 +201,7 @@ export function CarpetPricePickMenu({
         {planError && <p className="mt-1 text-xs text-red-500">{planError}</p>}
       </div>
 
-      {showAddons && (
+      {showAddons && service.addons.length > 0 && (
         <div>
           <p
             className={cn(
@@ -163,7 +212,7 @@ export function CarpetPricePickMenu({
             Add-ons (optional)
           </p>
           <div className="mt-2 flex flex-wrap gap-2">
-            {carpetAddonOptions.map((option) => {
+            {service.addons.map((option) => {
               const selected = selectedAddons.includes(option.label);
               const pillClass = cn(
                 "rounded-full px-4 py-2 text-xs font-medium transition-all",
@@ -188,7 +237,10 @@ export function CarpetPricePickMenu({
                     onClick={() => onAddonToggle?.(option.label)}
                     className={pillClass}
                   >
-                    {option.label} · {formatCarpetPrice(option.price ?? 0)}
+                    {option.label} ·{" "}
+                    {option.price != null && !option.priceDisplay
+                      ? formatAddonPrice(option.price)
+                      : addonPriceLabel(option)}
                   </button>
                 );
               }
@@ -199,8 +251,7 @@ export function CarpetPricePickMenu({
                   href={buildBookingHref(serviceId, undefined, option.label)}
                   className={pillClass}
                 >
-                  {option.label} ·{" "}
-                  {option.price != null ? formatCarpetPrice(option.price) : "Quote"}
+                  {option.label} · {addonPriceLabel(option)}
                 </Link>
               );
             })}

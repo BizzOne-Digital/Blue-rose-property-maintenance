@@ -17,6 +17,8 @@ export interface CatalogPlan {
   description?: string;
   quickPick?: boolean;
   billingPeriod?: "one-time" | "monthly";
+  /** Optional heading that splits plans into separate booking choices (e.g. "Monthly driveway only"). */
+  group?: string;
 }
 
 export interface PricingLine {

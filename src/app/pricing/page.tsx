@@ -8,7 +8,7 @@ export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
   title: "Pricing",
   description:
-    `Transparent starting prices for carpet cleaning, lawn care and snow removal in ${siteConfig.city}.`,
+    `Transparent starting prices for lawn care, snow removal and junk removal in ${siteConfig.city}.`,
 };
 
 export default function PricingPage() {

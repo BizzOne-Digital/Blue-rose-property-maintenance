@@ -4,7 +4,7 @@ import Image from "next/image";
 export default function NotFound() {
   return (
     <section className="page-header-offset flex min-h-screen flex-col items-center justify-center gradient-bg-radial px-4 pb-12 text-center">
-      <div className="mb-8 rounded-2xl bg-white p-4 shadow-xl">
+      <div className="mb-8 overflow-hidden rounded-full shadow-xl shadow-electric/30 ring-2 ring-electric/40">
         <Image
           src="/images/blue-rose-logo.png"
           alt="Blue Rose Property Maintenance"

@@ -76,3 +76,23 @@ Ensure environment variables are not required — all configuration is in `src/c
 ## License
 
 Private — Blue Rose Property Maintenance.
+
+## Services offered
+
+The site only offers Lawn Care, Snow Removal and Junk Removal. The list lives in `offeredServiceIds` in `src/config/site.ts`; anything else saved in the admin catalog (carpet cleaning, home cleaning) is filtered out. Prices and plans for the three services are still edited in `/admin`.
+
+Snow removal plans are booked as separate choices (one-time, monthly driveway only, monthly unlimited). In `/admin`, each plan has a Billing type and a Booking group; plans in different groups never appear in the same list.
+
+## Google tag and lead tracking
+
+Set these in the hosting environment (see `.env.example`):
+
+- `NEXT_PUBLIC_GOOGLE_TAG_ID` - GA4 and/or Google Ads tag ID(s), comma separated. Without it the tag is not installed.
+- `NEXT_PUBLIC_GOOGLE_ADS_PHONE_CONVERSION` and `NEXT_PUBLIC_GOOGLE_ADS_LEAD_CONVERSION` - optional Google Ads conversion targets (`AW-XXXXXXXXX/label`).
+
+Events sent, all with `lead_source = website`:
+
+- `phone_call_click` when a visitor taps any phone link (`click_location` says where).
+- `generate_lead` when the booking form or contact form is submitted (`lead_type` = `booking_form` or `contact_form`).
+
+Lead emails are subject-tagged `[Website Lead]` and include a `Lead Source: website` line. In GA4, mark `phone_call_click` and `generate_lead` as key events.

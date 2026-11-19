@@ -7,10 +7,11 @@ export function formatMoney(amount: number): string {
 
 export function planPriceLabel(plan: CatalogPlan): string {
   if (plan.priceDisplay) return plan.priceDisplay;
+  if (plan.price <= 0) return "Call for quote";
   if (plan.priceMin != null && plan.priceMax != null) {
     return `$${plan.priceMin}–$${plan.priceMax}`;
   }
-  if (plan.billingPeriod === "monthly") return `${formatMoney(plan.price)}/mo`;
+  if (getPlanBilling(plan) === "monthly") return `${formatMoney(plan.price)}/mo`;
   return formatMoney(plan.price);
 }
 
@@ -43,7 +44,11 @@ export function calculatePlanEstimate(
     return service.mainPriceDisplay;
   }
 
-  if (plan.billingPeriod === "monthly") {
+  if (plan.price <= 0) {
+    return planPriceLabel(plan);
+  }
+
+  if (getPlanBilling(plan) === "monthly") {
     return addonTotal > 0
       ? `${formatMoney(plan.price)}/mo + ${formatMoney(addonTotal)} add-on estimated`
       : `${formatMoney(plan.price)}/mo`;
@@ -83,4 +88,39 @@ export function slugifyId(value: string): string {
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-+|-+$/g, "")
     .slice(0, 48);
+}
+
+export interface PlanGroup {
+  id: string;
+  label: string;
+  plans: CatalogPlan[];
+}
+
+/** Billing type for a plan. Plans saved without a billing period are inferred from their wording. */
+export function getPlanBilling(plan: CatalogPlan): "one-time" | "monthly" {
+  if (plan.billingPeriod) return plan.billingPeriod;
+  const text = `${plan.label} ${plan.priceDisplay ?? ""} ${plan.description ?? ""} ${plan.id}`;
+  return /monthly|\/\s?mo\b|per month|a month|\bmonth\b/i.test(text) ? "monthly" : "one-time";
+}
+
+export function getPlanGroupLabel(plan: CatalogPlan): string {
+  const explicit = plan.group?.trim();
+  if (explicit) return explicit;
+  return getPlanBilling(plan) === "monthly" ? "Monthly plans" : "One-time service";
+}
+
+/**
+ * Splits a service's plans into separate booking choices so one-time and monthly
+ * options (and any custom groups, e.g. monthly driveway) are never mixed in one list.
+ */
+export function groupPlans(plans: CatalogPlan[]): PlanGroup[] {
+  const groups: PlanGroup[] = [];
+  for (const plan of plans) {
+    const label = getPlanGroupLabel(plan);
+    const id = slugifyId(label) || "plans";
+    const existing = groups.find((g) => g.id === id);
+    if (existing) existing.plans.push(plan);
+    else groups.push({ id, label, plans: [plan] });
+  }
+  return groups;
 }

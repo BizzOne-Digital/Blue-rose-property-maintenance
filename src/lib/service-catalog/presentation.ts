@@ -1,13 +1,22 @@
 import type { PricingCategory } from "@/data/pricing";
 import type { Service, ServiceId } from "@/data/services";
-import { addonPriceLabel, planPriceLabel } from "./format";
+import { addonPriceLabel, getPlanGroupLabel, groupPlans, planPriceLabel } from "./format";
 import type { CatalogService, ServiceCatalog } from "./types";
+
+/** Plan name, suffixed with its group (e.g. "Monthly driveway only") when a service has several groups. */
+function planDisplayLabel(service: CatalogService, plan: CatalogService["plans"][number]) {
+  const group = getPlanGroupLabel(plan);
+  const redundant = group.toLowerCase() === plan.label.toLowerCase();
+  return groupPlans(service.plans).length > 1 && !redundant
+    ? `${plan.label} (${group})`
+    : plan.label;
+}
 
 export function getServiceDisplayItems(service: CatalogService): string[] {
   const lines: string[] = [];
 
   for (const plan of service.plans) {
-    lines.push(`${plan.label} — ${planPriceLabel(plan)}`);
+    lines.push(`${planDisplayLabel(service, plan)} — ${planPriceLabel(plan)}`);
   }
 
   if (service.bookingMode === "bedrooms" && service.bedroomPrices) {
@@ -62,7 +71,9 @@ export function catalogServiceToPricingCategory(service: CatalogService): Pricin
 
   for (const plan of service.plans) {
     items.push({
-      label: plan.quickPick ? `${plan.label} (quick pick)` : plan.label,
+      label: plan.quickPick
+        ? `${planDisplayLabel(service, plan)} (quick pick)`
+        : planDisplayLabel(service, plan),
       price: planPriceLabel(plan),
     });
   }

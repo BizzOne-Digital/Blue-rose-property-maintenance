@@ -42,7 +42,7 @@ export function FinalCTA() {
           className="font-heading text-3xl font-bold text-white md:text-5xl"
         />
         <p className="mx-auto mt-6 max-w-2xl text-lg text-ice/70">
-          Book carpet cleaning, lawn care or snow removal in {siteConfig.city} — all from one trusted team.
+          Book lawn care, snow removal or junk removal in {siteConfig.city} — all from one trusted team.
         </p>
         <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
           <MagneticButton href="/booking" variant="light">

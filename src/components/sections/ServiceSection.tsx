@@ -7,7 +7,7 @@ import type { Service } from "@/data/services";
 import { mapCatalogServiceToMarketing } from "@/data/services";
 import { useCatalog } from "@/lib/service-catalog/client";
 import { MagneticButton } from "@/components/ui/MagneticButton";
-import { CarpetPricePickMenu } from "@/components/ui/CarpetPricePickMenu";
+import { ServicePricePickMenu } from "@/components/ui/ServicePricePickMenu";
 import { cn } from "@/lib/utils";
 
 interface ServiceSectionProps {
@@ -118,7 +118,7 @@ export function ServiceSection({ service: serverService, index }: ServiceSection
                 <p className="mb-4 font-heading text-lg font-bold text-navy">
                   {service.name} Price Picks
                 </p>
-                <CarpetPricePickMenu serviceId={service.id} />
+                <ServicePricePickMenu serviceId={service.id} />
               </div>
             )}
           </div>

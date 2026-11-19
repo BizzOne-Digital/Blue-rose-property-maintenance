@@ -8,14 +8,11 @@ import type { Service } from "@/data/services";
 import { cn } from "@/lib/utils";
 
 const serviceIcons: Record<string, React.ReactNode> = {
-  "carpet-cleaning": (
+  "junk-removal": (
     <svg viewBox="0 0 24 24" fill="none" className="h-6 w-6" stroke="currentColor" strokeWidth="1.5">
-      <path d="M4 18h16M6 14l2-8h8l2 8M8 14v4M16 14v4" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  ),
-  "home-cleaning": (
-    <svg viewBox="0 0 24 24" fill="none" className="h-6 w-6" stroke="currentColor" strokeWidth="1.5">
-      <path d="M3 12l9-8 9 8M5 10v10h14V10" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M2 16V7h11v9M13 10h4l4 4v2h-8M2 16h2m14 0h3" strokeLinecap="round" strokeLinejoin="round" />
+      <circle cx="7" cy="17" r="1.6" />
+      <circle cx="17" cy="17" r="1.6" />
     </svg>
   ),
   "lawn-care": (

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Sora } from "next/font/google";
+import { Inter, Barlow_Condensed } from "next/font/google";
 import "./globals.css";
 import { SmoothScroll } from "@/components/layout/SmoothScroll";
 import { LoadingScreen } from "@/components/layout/LoadingScreen";
@@ -8,6 +8,7 @@ import { SiteChrome } from "@/components/layout/SiteChrome";
 import { CatalogProvider } from "@/lib/service-catalog/client";
 import { readServiceCatalog } from "@/lib/service-catalog/server";
 import { siteConfig } from "@/config/site";
+import { GoogleTag } from "@/components/analytics/GoogleTag";
 
 export const dynamic = "force-dynamic";
 
@@ -17,9 +18,10 @@ const inter = Inter({
   display: "swap",
 });
 
-const sora = Sora({
+const heading = Barlow_Condensed({
+  weight: ["600", "700", "800"],
   subsets: ["latin"],
-  variable: "--font-sora",
+  variable: "--font-barlow",
   display: "swap",
 });
 
@@ -32,8 +34,8 @@ export const metadata: Metadata = {
   description: siteConfig.description,
   keywords: [
     "property maintenance services Regina",
-    "professional carpet cleaning Regina",
-    "residential cleaning Regina",
+    "lawn care Regina",
+    "junk removal Regina",
     "lawn mowing service Regina",
     "yard cleanup Regina",
     "snow removal service Regina",
@@ -64,7 +66,7 @@ export default async function RootLayout({
   const initialCatalog = await readServiceCatalog();
 
   return (
-    <html lang="en" className={`${inter.variable} ${sora.variable}`}>
+    <html lang="en" className={`${inter.variable} ${heading.variable}`}>
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <script
@@ -90,6 +92,7 @@ export default async function RootLayout({
         />
       </head>
       <body className="antialiased">
+        <GoogleTag />
         <CatalogProvider key={initialCatalog.updatedAt} initialCatalog={initialCatalog}>
           <LoadingScreen />
           <SmoothScroll>

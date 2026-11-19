@@ -3,110 +3,129 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Check, ArrowRight } from "lucide-react";
-import { images } from "@/data/images";
+import { ArrowRight, Check, Phone } from "lucide-react";
 import { mapCatalogServiceToMarketing } from "@/data/services";
+import { siteConfig } from "@/config/site";
 import { useCatalog } from "@/lib/service-catalog/client";
-import { BeforeAfterSlider } from "@/components/ui/BeforeAfterSlider";
 import { AnimatedHeading } from "@/components/ui/AnimatedHeading";
 import { MagneticButton } from "@/components/ui/MagneticButton";
-import { Sparkles } from "@/components/ui/Sparkles";
-import { CarpetPricePickMenu } from "@/components/ui/CarpetPricePickMenu";
+import { ServicePricePickMenu } from "@/components/ui/ServicePricePickMenu";
+import { PhoneLink } from "@/components/analytics/PhoneLink";
 
 export function ServiceSpotlight() {
   const { getService } = useCatalog();
-  const carpetCatalog = getService("carpet-cleaning");
-  if (!carpetCatalog) return null;
-  const carpetService = mapCatalogServiceToMarketing(carpetCatalog);
+  const snowCatalog = getService("snow-removal");
+  const junkCatalog = getService("junk-removal");
+  const snow = snowCatalog?.active ? mapCatalogServiceToMarketing(snowCatalog) : null;
+  const junk = junkCatalog?.active ? mapCatalogServiceToMarketing(junkCatalog) : null;
 
   return (
-    <section className="relative w-full overflow-hidden py-16 carpet-texture sm:py-24">
-      <div className="absolute top-0 right-0 section-number text-royal">02</div>
-      <Sparkles count={10} />
+    <>
+      {snow && (
+        <section className="relative w-full overflow-hidden bg-soft-gray py-16 sm:py-24">
+          <div className="absolute top-0 right-0 section-number text-royal">02</div>
 
-      <div className="relative mx-auto max-w-7xl px-4 lg:px-8">
-        <div className="grid min-w-0 items-center gap-8 sm:gap-12 lg:grid-cols-2">
-          <div>
-            <span className="mb-4 inline-block rounded-full bg-gradient-to-r from-royal/10 to-electric/10 px-4 py-1.5 text-xs font-semibold tracking-wider text-royal uppercase">
-              Carpet Cleaning Spotlight
-            </span>
-            <AnimatedHeading
-              text="Bring Your Carpets Back to Life"
-              className="font-heading text-3xl font-bold text-navy md:text-5xl"
-            />
-            <p className="mt-6 text-lg leading-relaxed text-navy/70">
-              {carpetService.description}
-            </p>
+          <div className="relative mx-auto max-w-7xl px-4 lg:px-8">
+            <div className="grid min-w-0 items-start gap-8 sm:gap-12 lg:grid-cols-2">
+              <div>
+                <span className="mb-4 inline-block rounded-full bg-royal/10 px-4 py-1.5 text-xs font-bold tracking-wider text-royal uppercase">
+                  Snow Removal Plans
+                </span>
+                <AnimatedHeading
+                  text="Winter Handled. Pick Your Plan."
+                  className="font-heading text-4xl font-bold text-navy md:text-6xl"
+                />
+                <p className="mt-6 text-lg leading-relaxed text-navy/70">{snow.description}</p>
 
-            <ul className="mt-8 space-y-3">
-              {carpetService.items.map((item, i) => (
-                <motion.li
-                  key={item}
-                  className="flex items-center gap-3 text-navy/80"
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.08 }}
+                <ul className="mt-8 space-y-3">
+                  {snow.benefits.map((item, i) => (
+                    <motion.li
+                      key={item}
+                      className="flex items-center gap-3 text-navy/80"
+                      initial={{ opacity: 0, x: -20 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: i * 0.08 }}
+                    >
+                      <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-electric to-royal text-white">
+                        <Check className="h-3.5 w-3.5" />
+                      </span>
+                      {item}
+                    </motion.li>
+                  ))}
+                </ul>
+
+                <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
+                  <MagneticButton href="/booking?service=snow-removal">Book Snow Removal</MagneticButton>
+                  <Link
+                    href="/pricing"
+                    className="inline-flex items-center gap-2 text-sm font-semibold text-royal hover:text-electric"
+                  >
+                    View Pricing <ArrowRight className="h-4 w-4" />
+                  </Link>
+                </div>
+              </div>
+
+              <div className="space-y-6">
+                <div className="relative h-56 overflow-hidden rounded-2xl sm:h-72">
+                  <Image
+                    src={snow.image}
+                    alt="Snow removal service"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width:1024px) 100vw, 40vw"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-near-black/70 to-transparent" />
+                </div>
+                <div className="rounded-2xl border border-royal/10 bg-white p-6 shadow-lg">
+                  <p className="mb-4 font-heading text-xl font-bold text-navy">Snow Removal Price Picks</p>
+                  <ServicePricePickMenu serviceId="snow-removal" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {junk && (
+        <section className="relative w-full overflow-hidden bg-near-black py-16 sm:py-20">
+          <div className="absolute inset-0 opacity-40" aria-hidden="true">
+            <div className="absolute top-1/2 right-0 h-[28rem] w-[28rem] -translate-y-1/2 rounded-full bg-royal blur-[120px]" />
+          </div>
+          <div className="relative mx-auto grid max-w-7xl items-center gap-10 px-4 lg:grid-cols-2 lg:px-8">
+            <div>
+              <span className="mb-4 inline-block rounded-full bg-electric/15 px-4 py-1.5 text-xs font-bold tracking-wider text-electric uppercase">
+                Junk Removal
+              </span>
+              <h2 className="chrome-text font-heading text-4xl font-bold italic uppercase md:text-6xl">
+                We Haul It. You Relax.
+              </h2>
+              <p className="mt-5 max-w-xl text-lg leading-relaxed text-ice/75">{junk.description}</p>
+              <div className="mt-8 flex flex-wrap items-center gap-4">
+                <MagneticButton href="/booking?service=junk-removal">Get a Free Quote</MagneticButton>
+                <PhoneLink
+                  location="junk-removal-spotlight"
+                  className="inline-flex items-center gap-2 rounded-full border border-white/30 px-6 py-3 text-sm font-bold text-white hover:bg-white/10"
                 >
-                  <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-electric to-royal text-white">
-                    <Check className="h-3.5 w-3.5" />
-                  </span>
+                  <Phone className="h-4 w-4" aria-hidden="true" />
+                  {siteConfig.phone}
+                </PhoneLink>
+              </div>
+            </div>
+            <ul className="grid gap-3 sm:grid-cols-2">
+              {junk.items.map((item) => (
+                <li
+                  key={item}
+                  className="chrome-border flex items-center gap-3 rounded-xl p-4 text-sm font-medium text-ice/90"
+                >
+                  <Check className="h-4 w-4 shrink-0 text-electric" />
                   {item}
-                </motion.li>
+                </li>
               ))}
             </ul>
-
-            <div className="mt-8 rounded-2xl bg-gradient-to-br from-navy to-royal p-6 text-white shadow-xl">
-              <p className="text-sm text-ice/70">Carpet cleaning packages</p>
-              <p className="font-heading text-3xl font-bold">From $99</p>
-              <p className="mt-2 text-sm text-ice/70">
-                Vacuum, pre-stain treatment & deep cleaning included
-              </p>
-            </div>
-
-            <div className="mt-6 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
-              <MagneticButton href="/booking">Book Carpet Cleaning</MagneticButton>
-              <Link
-                href="/pricing"
-                className="inline-flex items-center gap-2 text-sm font-semibold text-royal hover:text-electric"
-              >
-                View Pricing <ArrowRight className="h-4 w-4" />
-              </Link>
-            </div>
           </div>
-
-          <div className="space-y-6">
-            <BeforeAfterSlider
-              beforeSrc={images.carpetCleaning.before}
-              afterSrc={images.carpetCleaning.after}
-              beforeAlt="Carpet before professional cleaning"
-              afterAlt="Carpet after professional cleaning"
-            />
-            <motion.div
-              className="relative h-48 overflow-hidden rounded-2xl"
-              whileHover={{ scale: 1.02 }}
-              transition={{ duration: 0.3 }}
-            >
-              <Image
-                src={images.carpetCleaning.equipment}
-                alt="Professional carpet extraction equipment"
-                fill
-                className="object-cover"
-                sizes="(max-width:768px) 100vw, 40vw"
-              />
-              <div className="absolute inset-0 bg-gradient-to-r from-navy/60 to-transparent" />
-              <p className="absolute bottom-4 left-4 max-w-xs text-sm font-medium text-white">
-                Professional-grade extraction equipment for deep, visible results.
-              </p>
-            </motion.div>
-          </div>
-        </div>
-
-        <div className="relative mt-12 rounded-2xl border border-royal/10 bg-white p-6 shadow-lg sm:p-8">
-          <p className="mb-4 font-heading text-lg font-bold text-navy">Carpet Cleaning Price Picks</p>
-          <CarpetPricePickMenu />
-        </div>
-      </div>
-    </section>
+        </section>
+      )}
+    </>
   );
 }

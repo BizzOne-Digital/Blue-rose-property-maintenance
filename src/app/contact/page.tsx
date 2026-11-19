@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Phone, Mail, MapPin, Clock } from "lucide-react";
 import { siteConfig } from "@/config/site";
-import { formatPhoneForTel } from "@/lib/utils";
+import { PhoneLink } from "@/components/analytics/PhoneLink";
 import { ContactForm } from "@/components/ui/ContactForm";
 import { FAQAccordion } from "@/components/ui/FAQAccordion";
 import { faqs } from "@/data/faqs";
@@ -18,7 +18,7 @@ const contactCards = [
     icon: Phone,
     title: "Phone",
     value: `${siteConfig.phoneCallToAction} · ${siteConfig.phone}`,
-    href: `tel:${formatPhoneForTel(siteConfig.phone)}`,
+    phone: true,
   },
   {
     icon: Mail,
@@ -50,7 +50,11 @@ export default function ContactPage() {
             Get In Touch
           </h1>
           <p className="mx-auto mt-6 max-w-2xl text-lg text-ice/70">
-            Have a question or ready to book? Email{" "}
+            Have a question or ready to book? Call{" "}
+            <PhoneLink location="contact-hero" className="font-semibold text-white hover:underline">
+              {siteConfig.phone}
+            </PhoneLink>{" "}
+            or email{" "}
             <a href={`mailto:${siteConfig.email}`} className="text-electric hover:underline">
               {siteConfig.email}
             </a>{" "}
@@ -71,7 +75,11 @@ export default function ContactPage() {
                   <card.icon className="h-5 w-5" />
                 </div>
                 <h3 className="font-heading font-bold text-navy">{card.title}</h3>
-                {card.href ? (
+                {"phone" in card && card.phone ? (
+                  <PhoneLink location="contact-page" className="mt-2 block text-sm text-navy/70 hover:text-royal">
+                    {card.value}
+                  </PhoneLink>
+                ) : "href" in card && card.href ? (
                   <a href={card.href} className="mt-2 block text-sm text-navy/70 hover:text-royal">
                     {card.value}
                   </a>

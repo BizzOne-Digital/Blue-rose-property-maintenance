@@ -4,11 +4,11 @@ import { Phone, Mail, MapPin, Clock } from "lucide-react";
 import { GoogleStarsBadge } from "@/components/ui/GoogleStarsBadge";
 import { siteConfig } from "@/config/site";
 import { navLinks, serviceLinks } from "@/data/navigation";
-import { formatPhoneForTel } from "@/lib/utils";
+import { PhoneLink } from "@/components/analytics/PhoneLink";
 
 export function Footer() {
   return (
-    <footer className="relative overflow-hidden bg-navy text-white">
+    <footer className="relative overflow-hidden border-t border-electric/30 bg-near-black text-white">
       <div className="absolute inset-0 opacity-30" aria-hidden="true">
         <svg className="h-full w-full" viewBox="0 0 1200 400" preserveAspectRatio="none">
           <path
@@ -28,19 +28,19 @@ export function Footer() {
       <div className="relative mx-auto max-w-7xl px-4 py-16 lg:px-8">
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4">
           <div>
-            <div className="mb-5 inline-block rounded-2xl bg-white p-2.5 sm:p-3">
+            <div className="mb-5 inline-block overflow-hidden rounded-full ring-2 ring-electric/40">
               <Image
                 src="/images/blue-rose-logo.png"
                 alt="Blue Rose Property Maintenance"
                 width={120}
                 height={120}
-                className="h-24 w-24 object-contain sm:h-28 sm:w-28"
+                className="h-28 w-28 object-contain sm:h-32 sm:w-32"
               />
             </div>
             <h3 className="font-heading text-xl font-bold">Blue Rose</h3>
             <p className="text-sm text-ice/70">Property Maintenance</p>
             <p className="mt-4 text-sm leading-relaxed text-ice/60">
-              Professional carpet cleaning, lawn care and snow removal in{" "}
+              Lawn care, snow removal and junk removal in{" "}
               {siteConfig.city} — one trusted team for year-round property care.
             </p>
             <div className="mt-4">
@@ -94,9 +94,9 @@ export function Footer() {
             <ul className="space-y-3 text-sm text-ice/70">
               <li className="flex items-start gap-2">
                 <Phone className="mt-0.5 h-4 w-4 shrink-0 text-electric" />
-                <a href={`tel:${formatPhoneForTel(siteConfig.phone)}`} className="hover:text-white">
+                <PhoneLink location="footer" className="hover:text-white">
                   {siteConfig.phoneCallToAction} · {siteConfig.phone}
-                </a>
+                </PhoneLink>
               </li>
               <li className="flex items-start gap-2">
                 <Mail className="mt-0.5 h-4 w-4 shrink-0 text-electric" />
@@ -127,7 +127,7 @@ export function Footer() {
           </p>
           <Link
             href="/booking"
-            className="rounded-full bg-gradient-to-r from-electric to-royal px-6 py-2.5 text-sm font-semibold text-white shadow-lg shadow-electric/20 transition-transform hover:scale-105"
+            className="rounded-full bg-gradient-to-r from-royal to-electric px-6 py-2.5 text-sm font-semibold text-white shadow-lg shadow-electric/20 transition-transform hover:scale-105"
           >
             Book a Service
           </Link>

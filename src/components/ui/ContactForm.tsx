@@ -7,6 +7,7 @@ import { z } from "zod";
 import { useCatalog } from "@/lib/service-catalog/client";
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
+import { trackFormLead } from "@/lib/analytics";
 
 const contactSchema = z.object({
   name: z.string().min(2, "Name is required"),
@@ -48,6 +49,7 @@ export function ContactForm() {
         throw new Error("Failed to send");
       }
 
+      trackFormLead("contact", data.service);
       setSubmitSuccess(true);
       reset();
     } catch {

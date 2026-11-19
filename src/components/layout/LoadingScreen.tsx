@@ -24,7 +24,7 @@ export function LoadingScreen() {
           transition={{ duration: 0.6 }}
         >
           <motion.div
-            className="relative mb-8 rounded-2xl bg-white p-4 shadow-2xl shadow-electric/20"
+            className="relative mb-8 overflow-hidden rounded-full shadow-2xl shadow-electric/40 ring-2 ring-electric/40"
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}

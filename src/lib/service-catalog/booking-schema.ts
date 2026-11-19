@@ -65,7 +65,7 @@ export function createBookingSchema(catalog: ServiceCatalog) {
     if (svc.bookingMode === "property-size" && !data.propertySize?.trim()) {
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
-        message: "Property size is required",
+        message: "Please tell us what you need done",
         path: ["propertySize"],
       });
     }

@@ -21,7 +21,7 @@ export const faqs: FAQ[] = [
     id: "services",
     question: "Can I book multiple services at once?",
     answer:
-      "Yes. Blue Rose offers carpet cleaning, lawn care and snow removal — one company for year-round property care.",
+      "Yes. Blue Rose offers lawn care, snow removal and junk removal — one company for year-round property care.",
   },
   {
     id: "confirmation",

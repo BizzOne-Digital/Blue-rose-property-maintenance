@@ -4,7 +4,7 @@ import { siteConfig } from "@/config/site";
 
 export const metadata: Metadata = {
   title: "Blog",
-  description: `Tips and guides on property maintenance, carpet cleaning, lawn care and snow removal from Blue Rose Property Maintenance in ${siteConfig.city}.`,
+  description: `Tips and guides on property maintenance, lawn care, snow removal and junk removal from Blue Rose Property Maintenance in ${siteConfig.city}.`,
 };
 
 export default function BlogPage() {

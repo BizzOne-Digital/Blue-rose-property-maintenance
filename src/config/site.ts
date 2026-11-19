@@ -6,9 +6,12 @@ export const siteConfig = {
   region: "SK",
   serviceArea: "Regina, SK & surrounding areas",
   description:
-    "Professional carpet cleaning, lawn care and snow removal in Regina from one trusted property maintenance team.",
-  /** Set to true to show home cleaning across the site and booking flow. */
-  homeCleaningEnabled: false,
+    "Lawn care, snow removal and junk removal in Regina from one trusted property maintenance team.",
+  /**
+   * The only services Blue Rose offers. The catalog (including anything saved in the
+   * admin portal) is filtered to these, in this order. Carpet and home cleaning are discontinued.
+   */
+  offeredServiceIds: ["lawn-care", "snow-removal", "junk-removal"],
   url: "https://www.bluerosepropertymaintenance.com", // Replace with live domain
   email: "Bluerosepm9@gmail.com",
   phone: "(306) 393-9988",
@@ -19,6 +22,8 @@ export const siteConfig = {
   social: {
     google: "#", // Replace with Google Business profile URL
   },
+  /** Every lead coming from this site is tagged with this source (emails + Google tag events). */
+  leadSource: "website",
 } as const;
 
 export type SiteConfig = typeof siteConfig;

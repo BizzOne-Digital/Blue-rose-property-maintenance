@@ -10,7 +10,7 @@ import { cn } from "@/lib/utils";
 const seasons = [
   { id: "spring", label: "Spring", service: "Yard Cleanup", image: images.seasonal.spring },
   { id: "summer", label: "Summer", service: "Lawn Mowing", image: images.seasonal.summer },
-  { id: "fall", label: "Fall", service: "Carpet Cleaning", image: images.seasonal.fall },
+  { id: "fall", label: "Fall", service: "Yard Cleanup & Junk Removal", image: images.seasonal.fall },
   { id: "winter", label: "Winter", service: "Snow Removal", image: images.seasonal.winter },
 ] as const;
 
@@ -30,7 +30,7 @@ export function SeasonalSection() {
             className="font-heading text-3xl font-bold text-white md:text-5xl"
           />
           <p className="mx-auto mt-4 max-w-2xl text-ice/70">
-            From spring yard cleanup to winter snow removal — one team for every season.
+            From spring yard cleanup to winter snow removal, plus junk removal any time of year — one team for every season.
           </p>
         </div>
 

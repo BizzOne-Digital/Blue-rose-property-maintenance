@@ -4,10 +4,10 @@ import { Sparkles } from "@/components/ui/Sparkles";
 
 export function TrustBar() {
   const text =
-    "Professional Carpet Cleaning • Reliable Service • Transparent Pricing • One Company for Every Season • ";
+    "Lawn Care • Snow Removal • Junk Removal • Reliable Service • Transparent Pricing • One Company for Every Season • ";
 
   return (
-    <div className="relative marquee-container overflow-hidden bg-gradient-to-r from-navy via-royal to-navy py-3">
+    <div className="relative marquee-container overflow-hidden bg-gradient-to-r from-near-black via-royal to-near-black py-3">
       <div className="marquee-track whitespace-nowrap">
         {[0, 1].map((i) => (
           <span

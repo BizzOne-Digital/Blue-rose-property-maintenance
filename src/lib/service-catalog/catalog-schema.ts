@@ -17,6 +17,7 @@ const planSchema = z.object({
   description: z.string().optional(),
   quickPick: z.boolean().optional(),
   billingPeriod: z.enum(["one-time", "monthly"]).optional(),
+  group: z.string().optional(),
 });
 
 const serviceSchema = z.object({

@@ -8,14 +8,18 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { motion, AnimatePresence } from "framer-motion";
 import { Check, ChevronLeft, ChevronRight } from "lucide-react";
 import { mapCatalogServiceToMarketing, type ServiceId } from "@/data/services";
-import { calculateCarpetEstimate, getCarpetPlanById } from "@/data/carpet-pricing";
+import { calculateServiceEstimate, getPlanById } from "@/data/plan-pricing";
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
-import { CarpetPricePickMenu } from "@/components/ui/CarpetPricePickMenu";
+import { ServicePricePickMenu } from "@/components/ui/ServicePricePickMenu";
+import { trackFormLead } from "@/lib/analytics";
 import { useCatalog } from "@/lib/service-catalog/client";
 import {
   calculateBedroomEstimate,
   addonPriceLabel,
+  getPlanGroupLabel,
+  groupPlans,
+  planPriceLabel,
 } from "@/lib/service-catalog/format";
 import {
   createBookingSchema,
@@ -73,6 +77,20 @@ function BedroomSelector({
   );
 }
 
+/** Wording for the free-text detail step of services that are not priced by plan. */
+const DETAIL_COPY: Record<string, { label: string; placeholder: string; summary: string }> = {
+  "junk-removal": {
+    label: "What needs to be removed?",
+    placeholder: "e.g. old couch, fridge, garage clear-out, 6 bags of yard waste",
+    summary: "Items to remove",
+  },
+};
+const DEFAULT_DETAIL_COPY = {
+  label: "Yard Size",
+  placeholder: "e.g. small city lot, large corner lot, front and back",
+  summary: "Property / yard size",
+};
+
 function formatBedrooms(bedrooms?: string) {
   if (!bedrooms) return "";
   return `${bedrooms} bedroom${bedrooms === "1" ? "" : "s"}`;
@@ -87,7 +105,7 @@ function BookingWizardInner() {
   const searchParams = useSearchParams();
   const requestedService = searchParams.get("service") as ServiceId | null;
   const defaultServiceId =
-    activeServices.find((s) => s.id === "carpet-cleaning")?.id ?? activeServices[0]?.id ?? "";
+    activeServices[0]?.id ?? "";
   const initialService =
     requestedService && getService(requestedService)?.active
       ? requestedService
@@ -143,6 +161,7 @@ function BookingWizardInner() {
   const selectedPlan = useWatch({ control, name: "selectedPlan" });
   const serviceConfig = getService(selectedService);
   const bookingMode = serviceConfig?.bookingMode;
+  const detailCopy = DETAIL_COPY[selectedService] ?? DEFAULT_DETAIL_COPY;
 
   useEffect(() => {
     if (isFirstServiceEffect.current) {
@@ -157,7 +176,9 @@ function BookingWizardInner() {
     if (svc.bookingMode === "plans") {
       const fallback =
         svc.plans.find((p) => p.quickPick)?.id ?? svc.plans[0]?.id;
-      if (!getValues("selectedPlan") && fallback) {
+      const current = getValues("selectedPlan");
+      // Keep a valid choice (e.g. from a pricing-page link); otherwise fall back to the quick pick.
+      if ((!current || !svc.plans.some((p) => p.id === current)) && fallback) {
         setValue("selectedPlan", fallback);
       }
       setValue("bedrooms", undefined);
@@ -180,7 +201,7 @@ function BookingWizardInner() {
   const estimatedPrice = useMemo(() => {
     if (!serviceConfig) return "";
     if (serviceConfig.bookingMode === "plans") {
-      return calculateCarpetEstimate(serviceConfig, selectedPlan, selectedAddons);
+      return calculateServiceEstimate(serviceConfig, selectedPlan, selectedAddons);
     }
     if (serviceConfig.bookingMode === "bedrooms" && bedrooms) {
       return calculateBedroomEstimate(serviceConfig, bedrooms, selectedAddons);
@@ -238,8 +259,9 @@ function BookingWizardInner() {
     const svc = getService(data.service);
     const serviceDetails: string[] = [];
     if (svc?.bookingMode === "plans" && data.selectedPlan) {
+      const plan = getPlanById(svc, data.selectedPlan);
       serviceDetails.push(
-        `Plan: ${getCarpetPlanById(svc, data.selectedPlan)?.label ?? data.selectedPlan}`
+        `Plan: ${plan?.label ?? data.selectedPlan}${plan ? ` (${getPlanGroupLabel(plan)})` : ""}`
       );
       if (svc.packageIncludes?.length) {
         serviceDetails.push(`Includes: ${svc.packageIncludes.join(", ")}`);
@@ -250,7 +272,9 @@ function BookingWizardInner() {
       serviceDetails.push(`Bedrooms: ${formatBedrooms(data.bedrooms)}`);
     }
     if (svc?.bookingMode === "property-size") {
-      serviceDetails.push(`Property / yard size: ${data.propertySize}`);
+      serviceDetails.push(
+        `${(DETAIL_COPY[data.service] ?? DEFAULT_DETAIL_COPY).summary}: ${data.propertySize}`
+      );
     }
     serviceDetails.push(`Add-ons: ${data.addons?.join(", ") || "None"}`);
     if (svc?.commercialNote) {
@@ -260,6 +284,7 @@ function BookingWizardInner() {
     const body = [
       "BOOKING REQUEST",
       "================",
+      `Lead Source: ${siteConfig.leadSource}`,
       `Service: ${serviceName}`,
       ...serviceDetails,
       `Preferred Date: ${data.preferredDate}`,
@@ -290,10 +315,12 @@ function BookingWizardInner() {
         throw new Error("Failed to send booking request");
       }
 
+      trackFormLead("booking", serviceName);
       setSubmitted(true);
     } catch {
       const mailto = `mailto:${siteConfig.email}?subject=${encodeURIComponent(`Booking Request - ${serviceName}`)}&body=${encodeURIComponent(body)}`;
       globalThis.location.assign(mailto);
+      trackFormLead("booking", serviceName);
       setSubmitted(true);
     }
   };
@@ -301,7 +328,7 @@ function BookingWizardInner() {
   if (submitted) {
     return (
       <div className="mx-auto max-w-lg text-center">
-        <div className="mx-auto mb-6 inline-block rounded-2xl bg-white p-4 shadow-lg">
+        <div className="mx-auto mb-6 inline-block overflow-hidden rounded-full shadow-lg ring-2 ring-royal/30">
           <Image
             src="/images/blue-rose-logo.png"
             alt="Blue Rose Property Maintenance"
@@ -363,7 +390,9 @@ function BookingWizardInner() {
           >
             {step === 0 && (
               <div className="grid gap-4 sm:grid-cols-2">
-                {activeServices.map((service) => (
+                {activeServices.map((service) => {
+                  const planGroups = groupPlans(service.plans);
+                  return (
                   <label
                     key={service.id}
                     className={cn(
@@ -380,15 +409,29 @@ function BookingWizardInner() {
                       className="sr-only"
                     />
                     <p className="font-heading font-bold text-navy">{service.name}</p>
-                    <p className="mt-1 text-sm text-navy/60">{service.mainPriceDisplay}</p>
+                    {planGroups.length > 1 ? (
+                      <ul className="mt-2 space-y-1 text-xs text-navy/60">
+                        {planGroups.map((group) => (
+                          <li key={group.id} className="flex justify-between gap-3">
+                            <span>{group.label}</span>
+                            <span className="shrink-0 font-semibold text-royal">
+                              {planPriceLabel(group.plans[0])}
+                            </span>
+                          </li>
+                        ))}
+                      </ul>
+                    ) : (
+                      <p className="mt-1 text-sm text-navy/60">{service.mainPriceDisplay}</p>
+                    )}
                   </label>
-                ))}
+                  );
+                })}
               </div>
             )}
 
             {step === 1 && bookingMode === "plans" && (serviceConfig?.plans.length ?? 0) > 0 && (
               <div className="space-y-5">
-                <CarpetPricePickMenu
+                <ServicePricePickMenu
                   serviceId={selectedService}
                   interactive
                   showAddons
@@ -443,7 +486,7 @@ function BookingWizardInner() {
                 <div>
                   <p className="mb-1 text-sm font-medium text-navy">Add-ons (optional)</p>
                   <p className="mb-3 text-xs text-navy/50">
-                    Add carpet cleaning, inside fridge/oven/cabinet cleaning, or move-out service
+                    Add any optional extras
                   </p>
                   <div className="flex flex-wrap gap-2">
                     {(serviceConfig?.addons ?? []).map((addon) => (
@@ -474,10 +517,10 @@ function BookingWizardInner() {
             {step === 1 && bookingMode === "property-size" && (
               <div className="space-y-5">
                 <div>
-                  <label className="mb-1.5 block text-sm font-medium text-navy">Yard Size</label>
+                  <label className="mb-1.5 block text-sm font-medium text-navy">{detailCopy.label}</label>
                   <input
                     {...register("propertySize")}
-                    placeholder="e.g. small city lot, large corner lot, front and back"
+                    placeholder={detailCopy.placeholder}
                     className="w-full rounded-xl border border-navy/10 bg-white px-4 py-3 text-sm"
                   />
                   {errors.propertySize && (
@@ -659,7 +702,10 @@ function BookingWizardInner() {
                       {serviceConfig?.bookingMode === "plans" && values.selectedPlan ? (
                         <p>
                           <strong>Plan:</strong>{" "}
-                          {getCarpetPlanById(serviceConfig, values.selectedPlan)?.label}
+                          {(() => {
+                            const plan = getPlanById(serviceConfig, values.selectedPlan);
+                            return plan ? `${plan.label} (${getPlanGroupLabel(plan)})` : "";
+                          })()}
                         </p>
                       ) : null}
                       {serviceConfig?.bookingMode === "bedrooms" ? (
@@ -670,7 +716,7 @@ function BookingWizardInner() {
                       ) : null}
                       {serviceConfig?.bookingMode === "property-size" ? (
                         <p>
-                          <strong>Yard / property size:</strong> {values.propertySize}
+                          <strong>{detailCopy.summary}:</strong> {values.propertySize}
                         </p>
                       ) : null}
                       <p>

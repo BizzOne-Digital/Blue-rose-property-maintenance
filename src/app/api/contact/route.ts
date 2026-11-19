@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { sendBusinessEmail } from "@/lib/mail";
+import { siteConfig } from "@/config/site";
 
 const contactSchema = z.object({
   name: z.string().min(2),
@@ -17,11 +18,12 @@ export async function POST(request: Request) {
     const data = contactSchema.parse(body);
 
     await sendBusinessEmail({
-      subject: `Contact: ${data.subject}`,
+      subject: `[Website Lead] Contact: ${data.subject}`,
       replyTo: data.email,
       text: [
         "NEW CONTACT MESSAGE",
         "===================",
+        `Lead Source: ${siteConfig.leadSource}`,
         `Name: ${data.name}`,
         `Email: ${data.email}`,
         `Phone: ${data.phone}`,

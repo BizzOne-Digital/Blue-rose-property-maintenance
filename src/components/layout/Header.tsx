@@ -29,7 +29,7 @@ export function Header() {
       <motion.header
         className={cn(
           "fixed top-0 right-0 left-0 z-50 transition-shadow duration-300",
-          scrolled ? "shadow-lg shadow-navy/10" : "shadow-sm"
+          scrolled ? "shadow-lg shadow-black/40" : "shadow-sm"
         )}
         initial={{ y: -100 }}
         animate={{ y: 0 }}
@@ -37,7 +37,7 @@ export function Header() {
       >
         <TopTrustBar embedded />
 
-        <div className="border-b border-navy/5 bg-white">
+        <div className="border-b border-white/10 bg-black">
           <Link
             href="/"
             className="mx-auto flex max-w-7xl items-center justify-center px-4 py-2 sm:py-3"
@@ -53,12 +53,12 @@ export function Header() {
           </Link>
         </div>
 
-        <div className="border-b border-navy/5 bg-white/98 backdrop-blur-md">
+        <div className="border-b border-electric/20 bg-navy/95 backdrop-blur-md">
           <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-3 py-2.5 sm:px-4 lg:px-8">
             <button
               type="button"
               onClick={() => setMobileOpen(true)}
-              className="rounded-lg p-2 text-navy lg:hidden"
+              className="rounded-lg p-2 text-white lg:hidden"
               aria-label="Open menu"
               aria-expanded={mobileOpen}
             >
@@ -83,14 +83,14 @@ export function Header() {
                     href={link.href}
                     className={cn(
                       "relative px-3.5 py-2 text-sm font-medium transition-colors",
-                      active ? "text-royal" : "text-navy/70 hover:text-royal"
+                      active ? "text-white" : "text-ice/75 hover:text-white"
                     )}
                   >
                     {link.label}
                     {active && (
                       <motion.span
                         layoutId="nav-indicator"
-                        className="absolute right-3 bottom-0 left-3 h-0.5 rounded-full bg-royal"
+                        className="absolute right-3 bottom-0 left-3 h-0.5 rounded-full bg-electric"
                       />
                     )}
                   </Link>
@@ -100,7 +100,7 @@ export function Header() {
 
             <Link
               href="/booking"
-              className="shrink-0 rounded-md bg-[#0056b3] px-4 py-2 text-xs font-semibold text-white shadow-sm transition-all hover:bg-[#064EDB] sm:px-5 sm:py-2.5 sm:text-sm lg:ml-2"
+              className="shrink-0 rounded-md bg-gradient-to-r from-royal to-electric px-4 py-2 text-xs font-bold text-white shadow-md shadow-royal/40 transition-all hover:brightness-110 sm:px-5 sm:py-2.5 sm:text-sm lg:ml-2"
             >
               Book a Service
             </Link>

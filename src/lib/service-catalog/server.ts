@@ -4,6 +4,7 @@ import { unstable_noStore } from "next/cache";
 import type { ServiceCatalog } from "./types";
 import { catalogSchema } from "./catalog-schema";
 import { syncCatalogDisplayFields } from "./presentation";
+import { applyOfferedServices } from "./offered";
 import { getDb, getMongoUri } from "@/lib/mongodb/client";
 
 export { catalogSchema } from "./catalog-schema";
@@ -26,6 +27,7 @@ function writeCatalogToFile(catalog: ServiceCatalog): ServiceCatalog {
 
 export async function readServiceCatalog(): Promise<ServiceCatalog> {
   unstable_noStore();
+  const seed = readCatalogFromFile();
   if (getMongoUri()) {
     try {
       const db = await getDb();
@@ -33,13 +35,13 @@ export async function readServiceCatalog(): Promise<ServiceCatalog> {
         _id: CATALOG_DOC_ID,
       });
       if (doc?.data) {
-        return catalogSchema.parse(doc.data) as ServiceCatalog;
+        return applyOfferedServices(catalogSchema.parse(doc.data) as ServiceCatalog, seed);
       }
     } catch (error) {
       console.error("MongoDB catalog read failed, falling back to file:", error);
     }
   }
-  return readCatalogFromFile();
+  return applyOfferedServices(seed, seed);
 }
 
 export async function writeServiceCatalog(catalog: ServiceCatalog): Promise<ServiceCatalog> {

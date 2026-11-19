@@ -36,7 +36,7 @@ export function ServicesDropdown() {
         onClick={() => setOpen((prev) => !prev)}
         className={cn(
           "relative flex items-center gap-1 px-3.5 py-2 text-sm font-medium transition-colors",
-          isActive || open ? "text-royal" : "text-navy/70 hover:text-royal"
+          isActive || open ? "text-white" : "text-ice/75 hover:text-white"
         )}
         aria-expanded={open}
         aria-haspopup="true"
@@ -51,7 +51,7 @@ export function ServicesDropdown() {
         {(isActive || open) && (
           <motion.span
             layoutId="nav-indicator"
-            className="absolute right-3 bottom-0 left-3 h-0.5 rounded-full bg-royal"
+            className="absolute right-3 bottom-0 left-3 h-0.5 rounded-full bg-electric"
           />
         )}
       </button>

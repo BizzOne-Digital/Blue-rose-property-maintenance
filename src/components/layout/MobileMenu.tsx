@@ -42,7 +42,7 @@ export function MobileMenu({ onClose }: MobileMenuProps) {
       >
         <div className="mb-8 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="rounded-xl bg-white p-2">
+            <div className="overflow-hidden rounded-full ring-2 ring-electric/40">
               <Image
                 src="/images/blue-rose-logo.png"
                 alt="Blue Rose"
@@ -168,7 +168,7 @@ export function MobileMenu({ onClose }: MobileMenuProps) {
           <Link
             href="/booking"
             onClick={onClose}
-            className="block w-full rounded-xl bg-gradient-to-r from-electric to-royal py-4 text-center font-semibold text-white shadow-lg shadow-electric/30"
+            className="block w-full rounded-xl bg-gradient-to-r from-royal to-electric py-4 text-center font-semibold text-white shadow-lg shadow-electric/30"
           >
             Book a Service
           </Link>
