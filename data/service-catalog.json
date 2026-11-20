@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-20T14:18:36.011Z",
+  "updatedAt": "2026-11-20T17:31:12.318Z",
   "services": [
     {
       "id": "lawn-care",
@@ -139,8 +139,7 @@
           "label": "Commercial sidewalk snow removal",
           "priceDisplay": "Starting at $100 — call for quote"
         }
-      ],
-      "secondaryImage": "/images/snow-removal-shovel.jpg"
+      ]
     },
     {
       "id": "junk-removal",

@@ -17,7 +17,7 @@ export const images = {
   seasonal: {
     spring: "/images/lawn-care-cleanup.jpg",
     summer: "/images/lawn-care-mowing.jpg",
-    fall: "/images/junk-removal-hero.svg",
+    fall: "/images/lawn-care-cleanup.jpg",
     winter: "/images/snow-removal-hero.jpg",
   },
 } as const;
