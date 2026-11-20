@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { AnimatedHeading } from "@/components/ui/AnimatedHeading";
 
 const steps = [
-  { number: "01", title: "Choose Your Service", description: "Select lawn care, snow removal or junk removal." },
+  { number: "01", title: "Choose Your Service", description: "Select snow removal or junk removal." },
   { number: "02", title: "Select a Preferred Date", description: "Pick your preferred date and time for the service." },
   { number: "03", title: "Receive Confirmation", description: "Our team reviews your request and confirms your appointment." },
   { number: "04", title: "We Take Care of the Rest", description: "Sit back while our professionals handle your property care." },

@@ -40,7 +40,7 @@ export function Footer() {
             <h3 className="font-heading text-xl font-bold">Blue Rose</h3>
             <p className="text-sm text-ice/70">Property Maintenance</p>
             <p className="mt-4 text-sm leading-relaxed text-ice/60">
-              Lawn care, snow removal and junk removal in{" "}
+              Snow removal and junk removal in{" "}
               {siteConfig.city} — one trusted team for year-round property care.
             </p>
             <div className="mt-4">

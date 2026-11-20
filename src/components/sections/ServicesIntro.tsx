@@ -8,8 +8,8 @@ import { ServiceCard } from "@/components/ui/ServiceCard";
 import { AnimatedHeading } from "@/components/ui/AnimatedHeading";
 
 export function ServicesIntro() {
-  const { activeServices } = useCatalog();
-  const services = activeServices.map(mapCatalogServiceToMarketing);
+  const { mainServices } = useCatalog();
+  const services = mainServices.map(mapCatalogServiceToMarketing);
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
   const bgX = useTransform(scrollYProgress, [0, 1], ["0%", "-20%"]);
@@ -32,11 +32,11 @@ export function ServicesIntro() {
             className="font-heading text-3xl font-bold text-navy md:text-5xl"
           />
           <p className="mt-6 text-lg leading-relaxed text-navy/70">
-            Lawn care in the warm months, snow removal all winter and junk removal whenever you need it. Blue Rose makes year-round property care simple.
+            Snow removal all winter and junk removal whenever you need it. Blue Rose makes year-round property care simple.
           </p>
         </div>
 
-        <div className="mt-12 grid min-w-0 gap-6 sm:mt-16 md:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-12 grid min-w-0 gap-6 sm:mt-16 md:grid-cols-2">
           {services.map((service, i) => (
             <ServiceCard
               key={service.id}

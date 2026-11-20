@@ -4,7 +4,7 @@ import { Sparkles } from "@/components/ui/Sparkles";
 
 export function TrustBar() {
   const text =
-    "Lawn Care • Snow Removal • Junk Removal • Reliable Service • Transparent Pricing • One Company for Every Season • ";
+    "Snow Removal • Junk Removal • Reliable Service • Transparent Pricing • One Company for Every Season • ";
 
   return (
     <div className="relative marquee-container overflow-hidden bg-gradient-to-r from-near-black via-royal to-near-black py-3">

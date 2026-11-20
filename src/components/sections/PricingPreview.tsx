@@ -8,8 +8,9 @@ import { useCatalog } from "@/lib/service-catalog/client";
 import { AnimatedHeading } from "@/components/ui/AnimatedHeading";
 
 export function PricingPreview() {
-  const { catalog } = useCatalog();
-  const pricingPreview = getPricingFromCatalogData(catalog).preview;
+  const { catalog, mainServices } = useCatalog();
+  const mainIds = new Set(mainServices.map((s) => s.id));
+  const pricingPreview = getPricingFromCatalogData(catalog).preview.filter((p) => mainIds.has(p.id));
 
   return (
     <section className="relative w-full overflow-hidden bg-soft-gray py-16 sm:py-24">
@@ -28,7 +29,7 @@ export function PricingPreview() {
           </Link>
         </div>
 
-        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-12 grid gap-6 sm:grid-cols-2">
           {pricingPreview.map((item, i) => (
             <motion.div
               key={item.id}

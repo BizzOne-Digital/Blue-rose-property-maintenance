@@ -68,7 +68,7 @@ function QuickPick({ service, variant }: { service: CatalogService; variant: "da
 }
 
 export function Hero() {
-  const { activeServices } = useCatalog();
+  const { mainServices: activeServices } = useCatalog();
   const [selectedId, setSelectedId] = useState<string>(activeServices[0]?.id ?? "");
   const selected = activeServices.find((s) => s.id === selectedId) ?? activeServices[0];
 
@@ -132,7 +132,7 @@ export function Hero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.15 }}
             >
-              Lawn Care · Snow Removal · Junk Removal
+              Snow Removal · Junk Removal
             </motion.p>
 
             <motion.h1
@@ -154,7 +154,7 @@ export function Hero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 }}
             >
-              Reliable lawn care, snow removal and junk removal from one local team. Clear
+              Reliable snow removal and junk removal from one local team. Clear
               pricing, easy booking and a free quote when you need one.
             </motion.p>
 
@@ -290,7 +290,7 @@ export function Hero() {
 }
 
 export function ServiceTicker() {
-  const { activeServices } = useCatalog();
+  const { mainServices: activeServices } = useCatalog();
   const tickerItems = activeServices.map((s) => s.name);
 
   return (

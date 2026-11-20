@@ -99,13 +99,12 @@ function formatBedrooms(bedrooms?: string) {
 const EMPTY_ADDONS: string[] = [];
 
 function BookingWizardInner() {
-  const { catalog, activeServices, getService } = useCatalog();
+  const { catalog, activeServices, mainServices, getService } = useCatalog();
   const bookingSchema = useMemo(() => createBookingSchema(catalog), [catalog]);
 
   const searchParams = useSearchParams();
   const requestedService = searchParams.get("service") as ServiceId | null;
-  const defaultServiceId =
-    activeServices[0]?.id ?? "";
+  const defaultServiceId = mainServices[0]?.id ?? activeServices[0]?.id ?? "";
   const initialService =
     requestedService && getService(requestedService)?.active
       ? requestedService
@@ -128,6 +127,11 @@ function BookingWizardInner() {
     initialServiceConfig?.addons.some((option) => option.label === initialAddon)
       ? [initialAddon]
       : [];
+
+  // Seasonal services (lawn care) are hidden from the list unless the visitor came from their own page.
+  const listedServices = activeServices.filter(
+    (s) => mainServices.some((m) => m.id === s.id) || s.id === initialService
+  );
 
   const [step, setStep] = useState(0);
   const [submitted, setSubmitted] = useState(false);
@@ -390,7 +394,7 @@ function BookingWizardInner() {
           >
             {step === 0 && (
               <div className="grid gap-4 sm:grid-cols-2">
-                {activeServices.map((service) => {
+                {listedServices.map((service) => {
                   const planGroups = groupPlans(service.plans);
                   return (
                   <label

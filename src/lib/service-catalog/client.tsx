@@ -14,12 +14,15 @@ import { usePathname } from "next/navigation";
 
 export const CATALOG_UPDATED_EVENT = "blue-rose-catalog-updated";
 import type { CatalogService, ServiceCatalog } from "./types";
+import { siteConfig } from "@/config/site";
 
 interface CatalogContextValue {
   catalog: ServiceCatalog;
   refresh: () => Promise<void>;
   getService: (id: string) => CatalogService | undefined;
   activeServices: CatalogService[];
+  /** Active services shown on the home page and in the booking list (excludes seasonal ones like lawn care). */
+  mainServices: CatalogService[];
 }
 
 const CatalogContext = createContext<CatalogContextValue | null>(null);
@@ -67,10 +70,12 @@ export function CatalogProvider({
 
   const value = useMemo(() => {
     const activeServices = catalog.services.filter((s) => s.active);
+    const hidden: readonly string[] = siteConfig.hiddenFromMainServiceIds;
     return {
       catalog,
       refresh,
       activeServices,
+      mainServices: activeServices.filter((s) => !hidden.includes(s.id)),
       getService: (id: string) => catalog.services.find((s) => s.id === id),
     };
   }, [catalog, refresh]);

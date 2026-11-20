@@ -4,7 +4,6 @@ import { TrustBar } from "@/components/sections/TrustBar";
 import { ServicesIntro } from "@/components/sections/ServicesIntro";
 import { ServiceSpotlight } from "@/components/sections/ServiceSpotlight";
 import { WhyChoose } from "@/components/sections/WhyChoose";
-import { SeasonalSection } from "@/components/sections/SeasonalSection";
 import { ProcessSteps } from "@/components/sections/ProcessSteps";
 import { PricingPreview } from "@/components/sections/PricingPreview";
 import { TestimonialCarousel } from "@/components/sections/TestimonialCarousel";
@@ -25,7 +24,6 @@ export default function HomePage() {
       <ServicesIntro />
       <ServiceSpotlight />
       <WhyChoose />
-      <SeasonalSection />
       <ProcessSteps />
       <PricingPreview />
       <section className="py-16 sm:py-24">

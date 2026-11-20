@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowRight, Check, Phone } from "lucide-react";
@@ -66,6 +67,16 @@ export function ServiceSpotlight() {
               </div>
 
               <div className="space-y-6">
+                <div className="relative h-56 overflow-hidden rounded-2xl sm:h-72">
+                  <Image
+                    src={snow.image}
+                    alt="Snow removal service"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width:1024px) 100vw, 40vw"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-near-black/70 to-transparent" />
+                </div>
                 <div className="rounded-2xl border border-royal/10 bg-white p-6 shadow-lg">
                   <p className="mb-4 font-heading text-xl font-bold text-navy">Snow Removal Price Picks</p>
                   <ServicePricePickMenu serviceId="snow-removal" />

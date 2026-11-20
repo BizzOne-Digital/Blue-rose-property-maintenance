@@ -6,12 +6,17 @@ export const siteConfig = {
   region: "SK",
   serviceArea: "Regina, SK & surrounding areas",
   description:
-    "Lawn care, snow removal and junk removal in Regina from one trusted property maintenance team.",
+    "Snow removal and junk removal in Regina from one trusted property maintenance team.",
   /**
    * The only services Blue Rose offers. The catalog (including anything saved in the
    * admin portal) is filtered to these, in this order. Carpet and home cleaning are discontinued.
    */
-  offeredServiceIds: ["lawn-care", "snow-removal", "junk-removal"],
+  offeredServiceIds: ["snow-removal", "junk-removal", "lawn-care"],
+  /**
+   * Services kept off the home page and the booking service list (lawn care is a summer
+   * service). They stay on the Services page and menu, and can still be booked from there.
+   */
+  hiddenFromMainServiceIds: ["lawn-care"],
   url: "https://www.bluerosepropertymaintenance.com", // Replace with live domain
   email: "Bluerosepm9@gmail.com",
   phone: "(306) 393-9988",

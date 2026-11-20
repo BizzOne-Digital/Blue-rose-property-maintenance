@@ -16,8 +16,8 @@ const benefits = [
 ];
 
 export function WhyChoose() {
-  const { activeServices } = useCatalog();
-  const serviceCount = activeServices.length;
+  const { mainServices } = useCatalog();
+  const serviceCount = mainServices.length;
 
   return (
     <section className="relative w-full overflow-hidden gradient-bg-radial py-16 sm:py-24">

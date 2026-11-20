@@ -42,8 +42,8 @@ export function TestimonialCard({
 }
 
 export function TestimonialCarousel({ limit }: { limit?: number }) {
-  const { catalog } = useCatalog();
-  const activeIds = catalog.services.filter((s) => s.active).map((s) => s.id);
+  const { mainServices } = useCatalog();
+  const activeIds = mainServices.map((s) => s.id);
   const visible = getVisibleTestimonials(activeIds);
   const items = limit ? visible.slice(0, limit) : visible;
   const [current, setCurrent] = useState(0);
