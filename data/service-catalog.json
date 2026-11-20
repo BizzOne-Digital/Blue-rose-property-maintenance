@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-19T21:43:10.581Z",
+  "updatedAt": "2026-11-20T14:18:36.011Z",
   "services": [
     {
       "id": "lawn-care",
@@ -105,8 +105,7 @@
           "priceDisplay": "$250/mo",
           "description": "Unlimited snow removal all month for a single garage home.",
           "billingPeriod": "monthly",
-          "group": "Monthly unlimited",
-          "quickPick": true
+          "group": "Monthly unlimited"
         },
         {
           "id": "monthly-double",

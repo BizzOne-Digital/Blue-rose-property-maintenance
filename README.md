@@ -96,3 +96,7 @@ Events sent, all with `lead_source = website`:
 - `generate_lead` when the booking form or contact form is submitted (`lead_type` = `booking_form` or `contact_form`).
 
 Lead emails are subject-tagged `[Website Lead]` and include a `Lead Source: website` line. In GA4, mark `phone_call_click` and `generate_lead` as key events.
+
+### How catalog updates reach the live site
+
+`data/service-catalog.json` is the starting catalog. If its `updatedAt` is newer than the version saved in MongoDB (from `/admin`), the file wins after the next deploy. Anything saved in `/admin` afterwards is newer and wins again. To push a price change from the repo, edit the JSON and bump `updatedAt`.

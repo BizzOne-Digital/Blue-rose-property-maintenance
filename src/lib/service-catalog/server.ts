@@ -35,7 +35,12 @@ export async function readServiceCatalog(): Promise<ServiceCatalog> {
         _id: CATALOG_DOC_ID,
       });
       if (doc?.data) {
-        return applyOfferedServices(catalogSchema.parse(doc.data) as ServiceCatalog, seed);
+        const saved = catalogSchema.parse(doc.data) as ServiceCatalog;
+        // A newer data/service-catalog.json (shipped with a deploy) beats an older admin save,
+        // so price changes made in the repo reach the live site. Any admin save made after
+        // that deploy has a newer timestamp and wins again.
+        const seedIsNewer = Date.parse(seed.updatedAt) > Date.parse(saved.updatedAt);
+        return applyOfferedServices(seedIsNewer ? seed : saved, seed);
       }
     } catch (error) {
       console.error("MongoDB catalog read failed, falling back to file:", error);
