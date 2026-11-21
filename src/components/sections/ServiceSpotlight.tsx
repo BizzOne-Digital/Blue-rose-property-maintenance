@@ -77,6 +77,17 @@ export function ServiceSpotlight() {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-near-black/70 to-transparent" />
                 </div>
+                {snowCatalog?.secondaryImage && (
+                  <div className="relative aspect-[16/9] overflow-hidden rounded-2xl">
+                    <Image
+                      src={snowCatalog.secondaryImage}
+                      alt="Snow removal crew clearing a home and driveway"
+                      fill
+                      className="object-cover"
+                      sizes="(max-width:1024px) 100vw, 40vw"
+                    />
+                  </div>
+                )}
                 <div className="rounded-2xl border border-royal/10 bg-white p-6 shadow-lg">
                   <p className="mb-4 font-heading text-xl font-bold text-navy">Snow Removal Price Picks</p>
                   <ServicePricePickMenu serviceId="snow-removal" />
