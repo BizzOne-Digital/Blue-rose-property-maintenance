@@ -28,17 +28,19 @@ const heading = Barlow_Condensed({
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
-    default: `${siteConfig.name} | Regina Property Maintenance Services`,
+    default: `${siteConfig.name} | Snow Removal, Lawn Care & Junk Removal in Regina`,
     template: `%s | ${siteConfig.name}`,
   },
   description: siteConfig.description,
   keywords: [
-    "property maintenance services Regina",
+    "snow removal Regina",
+    "driveway snow removal Regina",
+    "monthly snow removal Regina",
     "lawn care Regina",
-    "junk removal Regina",
     "lawn mowing service Regina",
     "yard cleanup Regina",
-    "snow removal service Regina",
+    "junk removal Regina",
+    "property maintenance services Regina",
   ],
   openGraph: {
     type: "website",
@@ -87,6 +89,14 @@ export default async function RootLayout({
                 addressCountry: "CA",
               },
               areaServed: siteConfig.serviceArea,
+              hasOfferCatalog: {
+                "@type": "OfferCatalog",
+                name: "Property maintenance services",
+                itemListElement: ["Snow Removal", "Lawn Care", "Junk Removal"].map((name) => ({
+                  "@type": "Offer",
+                  itemOffered: { "@type": "Service", name, areaServed: siteConfig.city },
+                })),
+              },
             }),
           }}
         />

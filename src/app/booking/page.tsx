@@ -5,7 +5,7 @@ import { siteConfig } from "@/config/site";
 export const metadata: Metadata = {
   title: "Book a Service",
   description:
-    `Request a booking for lawn care, snow removal or junk removal in ${siteConfig.city}.`,
+    `Request a booking for snow removal, lawn care or junk removal in ${siteConfig.city}.`,
 };
 
 export default function BookingPage() {

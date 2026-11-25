@@ -10,7 +10,7 @@ export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
   title: "Services",
   description:
-    `Professional lawn care, snow removal and junk removal services in ${siteConfig.city}.`,
+    `Professional snow removal, lawn care and junk removal services in ${siteConfig.city}.`,
 };
 
 export default async function ServicesPage() {

@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-23T14:15:04.829Z",
+  "updatedAt": "2026-11-25T14:29:30.751Z",
   "services": [
     {
       "id": "lawn-care",
@@ -50,9 +50,9 @@
       "description": "Choose one-time snow removal or an unlimited monthly plan, priced by your garage size and driveway length. Commercial sidewalk clearing and an optional ice-melt add-on are also available.",
       "image": "/images/snow-removal-driveway.jpg",
       "items": [
-        "One-time — single garage home $60",
-        "One-time — double garage home $70",
-        "One-time — triple garage or long driveway $80",
+        "One-time — Standard Home (single garage) $60",
+        "One-time — Medium Home (double garage) $70",
+        "One-time — Large Home (triple garage or long driveway) $80",
         "Unlimited monthly — single garage home $250/mo",
         "Unlimited monthly — double garage home $299/mo",
         "Unlimited monthly — triple garage or long driveway $350/mo",
@@ -75,7 +75,7 @@
           "label": "Single garage home",
           "price": 60,
           "priceDisplay": "$60",
-          "description": "One-time clearing for a single garage home and driveway.",
+          "description": "Standard Home: one-time clearing for a single garage home and driveway.",
           "billingPeriod": "one-time",
           "group": "One-time snow removal",
           "quickPick": true
@@ -85,7 +85,7 @@
           "label": "Double garage home",
           "price": 70,
           "priceDisplay": "$70",
-          "description": "One-time clearing for a double garage home and driveway.",
+          "description": "Medium Home: one-time clearing for a double garage home and driveway.",
           "billingPeriod": "one-time",
           "group": "One-time snow removal"
         },
@@ -94,7 +94,7 @@
           "label": "Triple garage or long driveway",
           "price": 80,
           "priceDisplay": "$80",
-          "description": "One-time clearing for a triple garage or long driveway.",
+          "description": "Large Home: one-time clearing for a triple garage home or long driveway.",
           "billingPeriod": "one-time",
           "group": "One-time snow removal"
         },
@@ -139,7 +139,8 @@
           "label": "Commercial sidewalk snow removal",
           "priceDisplay": "Starting at $100 — call for quote"
         }
-      ]
+      ],
+      "secondaryImage": "/images/snow-removal-home-driveway.jpg"
     },
     {
       "id": "junk-removal",

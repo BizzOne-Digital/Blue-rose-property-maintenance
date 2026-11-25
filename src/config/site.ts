@@ -6,7 +6,7 @@ export const siteConfig = {
   region: "SK",
   serviceArea: "Regina, SK & surrounding areas",
   description:
-    "Snow removal and junk removal in Regina from one trusted property maintenance team.",
+    "Snow removal, lawn care and junk removal in Regina, SK from one trusted property maintenance team. Request a free quote or book online.",
   /**
    * The only services Blue Rose offers. The catalog (including anything saved in the
    * admin portal) is filtered to these, in this order. Carpet and home cleaning are discontinued.

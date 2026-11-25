@@ -11,7 +11,7 @@ import { FinalCTA } from "@/components/sections/FinalCTA";
 import { siteConfig } from "@/config/site";
 
 export const metadata: Metadata = {
-  title: "Home",
+  title: { absolute: `${siteConfig.name} | Snow Removal, Lawn Care & Junk Removal in Regina` },
   description: siteConfig.description,
 };
 
